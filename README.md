@@ -1,4 +1,4 @@
-# 🔍 Find & Found Telang
+# 🔍 FindFound-Telang
 
 > Sistem informasi pencarian dan penemuan barang hilang berbasis web untuk lingkungan kampus Telang.
 
@@ -41,7 +41,7 @@ Dibangun menggunakan **PHP Native dengan pola arsitektur MVC** (tanpa framework)
 ## 📁 Struktur Folder
 
 ```
-find-and-found-telang/
+findfound-telang/
 │
 ├── app/
 │   ├── config/
