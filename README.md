@@ -17,8 +17,8 @@ Dibangun menggunakan **PHP Native dengan pola arsitektur MVC** (tanpa framework)
 
 ## 👥 Tim Pengembang
 
-| Nama | NIM | Role |
-|------|-----|------|
+| Nama | NIM |
+|------|-----|
 | M. Fatihul Umam | 240411100209 | 
 | Fathan Ruhul Alam  | 240411100190 | 
 | Fathul Aziz Saifuddin | 240411100141 |
