@@ -45,6 +45,7 @@ findfound-telang/
 │
 ├── app/
 │   ├── config/
+|   |   |__ conn.php            #constanta setup
 │   │   └── database.php        # Konfigurasi koneksi database
 │   │
 │   ├── core/
@@ -54,29 +55,23 @@ findfound-telang/
 │   │
 │   ├── controllers/
 │   │   ├── Home.php
-│   │   ├── Barang.php
+│   │   ├── About.php
 │   │   └── Auth.php
 │   │
-│   ├── models/
-│   │   ├── BarangModel.php
-│   │   └── UserModel.php
 │   │
 │   └── views/
-│       ├── templates/          # header, navbar, footer
+│       ├── templates/          # header, footer
 │       ├── home/
-│       ├── barang/
-│       ├── auth/
+│       ├── auth/               # login, register
 │       └── about/
 │
-├── public/
-│   ├── index.php               # Entry point
-│   ├── .htaccess
-│   ├── css/
-│   ├── js/
-│   └── img/
-│
-└── database/
-    └── find_found_telang.sql   # File SQL untuk import
+── public/
+    ├── index.php               # Entry point
+    ├── .htaccess
+    ├── css/
+    ├── js/
+    └── img/
+
 ```
 
 ---
