@@ -39,7 +39,7 @@ class Auth extends Controller{
             }
 
             $_SESSION['login'] = true;
-            $_SESSION['user_id'] = $user['id_user'];
+            $_SESSION['id_user'] = $user['id_user'];
             
             header('Content-Type: application/json');
             echo json_encode(['status' => 'success']);
@@ -53,33 +53,74 @@ class Auth extends Controller{
             return;
         }
 
-        $user_model = $this->model('user_model');
-        $user = $user_model->getUserByEmail($_POST['email']);
-        
-        if (!$user) {
-            $_SESSION['err'] = 'Email Tidak Terdaftar';
-            header('location: '.BASEURL.'/auth/');
-            return;
-        }
+        if (isset($_POST['email'], $_POST['password'])) {
+            $user_model = $this->model('user_model');
+            $user = $user_model->getUserByEmail($_POST['email']);
             
-        if (!password_verify($_POST['password'], $user['password'])) {
-            $_SESSION['err'] = 'Password Tidak Ditemukan';
+            if (!$user) {
+                $_SESSION['err'] = 'Email Tidak Terdaftar';
+                header('location: '.BASEURL.'/auth/');
+                return;
+            }
+                
+            if (!password_verify($_POST['password'], $user['password'])) {
+                $_SESSION['err'] = 'Password Tidak Ditemukan';
+                header('location: '.BASEURL.'/auth/');
+                return;
+            }
+    
+            $_SESSION['Login'] = TRUE;
+            $_SESSION['id_user'] = $user['id_user'];
+            $_SESSION['nama'] = $user['nama_lengkap'];
+    
+            header('location: '.BASEURL.'/home');
+            exit;
+        }else{
             header('location: '.BASEURL.'/auth/');
-            return;
         }
-
-        $_SESSION['Login'] = TRUE;
-        $_SESSION['id_user'] = $user['id_user'];
-        $_SESSION['nama'] = $user['nama_lengkap'];
-
-        header('location: '.BASEURL.'/home');
-        exit;
     }
 
     public function register(){
-        if ($_SERVER['REQUEST_METHOD'] = 'POST') {
-            
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            $this->view('auth/register');
+            return;
         }
+
+        if (isset($_POST['nama'], $_POST['password'], $_POST['whatsapp'], $_POST['email'])) {
+            $user_model = $this->model('user_model');
+            $uniqe = $user_model->getUserByEmail($_POST['email']);
+
+            if ($uniqe['email']) {
+                $_SESSION['err'] = 'Email Sudah Digunakan';
+                header('location: '.BASEURL.'/auth/register');
+                return;
+            }
+
+            $data_user = [
+                'nama' => $_POST['nama'],
+                'email' => $_POST['email'],
+                'whatsapp' => $_POST['whatsapp'],
+                'password' => $_POST['password']
+            ];
+
+            $user_model->tambahData($data_user);
+
+            unset($_POST);
+            header('location: '.BASEURL.'/auth');
+            exit;
+        }else{
+            header('location: '.BASEURL.'/auth/register');
+        }
+
+    }
+
+    public function logout(){
+        $_SESSION = [];
+        session_unset();
+        session_destroy();
+
+        header('location: ' . BASEURL . '/auth');
+        exit;
     }
 
     
