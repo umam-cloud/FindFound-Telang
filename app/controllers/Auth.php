@@ -1,0 +1,86 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+class Auth extends Controller{
+    public function index(){
+        $this->view('auth/login');
+    }
+
+    public function googleAuth() {
+        $data = json_decode(file_get_contents('php://input'), true);
+        $id_token = $data['token'];
+
+        // Gunakan context untuk melewati verifikasi SSL di localhost
+        $arrContextOptions = [
+            "ssl" => [
+                "verify_peer" => false,
+                "verify_peer_name" => false,
+            ],
+        ];
+
+        $url = "https://oauth2.googleapis.com/tokeninfo?id_token=" . $id_token;
+        $response = file_get_contents($url, false, stream_context_create($arrContextOptions));
+        $payload = json_decode($response, true);
+
+        if (isset($payload['email'])) {
+            $userModel = $this->model('User_model');
+            $user = $userModel->getUserByEmail($payload['email']);
+
+            if (!$user) {
+                $userModel->tambahData([
+                    'nama' => $payload['name'],
+                    'email' => $payload['email'],
+                    'whatsapp' => '-', 
+                    'password' => password_hash(bin2hex(random_bytes(8)), PASSWORD_DEFAULT)
+                ]);
+                $user = $userModel->getUserByEmail($payload['email']);
+            }
+
+            $_SESSION['login'] = true;
+            $_SESSION['user_id'] = $user['id_user'];
+            
+            header('Content-Type: application/json');
+            echo json_encode(['status' => 'success']);
+            exit;
+        }
+    }
+
+    public function login(){
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            $this->view('auth/login');
+            return;
+        }
+
+        $user_model = $this->model('user_model');
+        $user = $user_model->getUserByEmail($_POST['email']);
+        
+        if (!$user) {
+            $_SESSION['err'] = 'Email Tidak Terdaftar';
+            header('location: '.BASEURL.'/auth/');
+            return;
+        }
+            
+        if (!password_verify($_POST['password'], $user['password'])) {
+            $_SESSION['err'] = 'Password Tidak Ditemukan';
+            header('location: '.BASEURL.'/auth/');
+            return;
+        }
+
+        $_SESSION['Login'] = TRUE;
+        $_SESSION['id_user'] = $user['id_user'];
+        $_SESSION['nama'] = $user['nama_lengkap'];
+
+        header('location: '.BASEURL.'/home');
+        exit;
+    }
+
+    public function register(){
+        if ($_SERVER['REQUEST_METHOD'] = 'POST') {
+            
+        }
+    }
+
+    
+}
