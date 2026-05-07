@@ -21,11 +21,11 @@
             </div>
             
             <div class="relative z-10 text-white w-full max-w-lg">
-                <h2 class="text-xl font-bold tracking-[0.3em] mb-32">FIND FOUND</h2>
-                <h1 class="text-6xl font-extrabold leading-[1.1] mb-8">The Ethical<br>Archivist of Lost<br>Belongings.</h1>
-                <p class="text-lg opacity-80 leading-relaxed max-w-md">
-                    A sanctuary for misplaced items, built on the foundations of trust, community stewardship, and intentional design.
-                </p>
+            <h2 class="text-xl font-bold tracking-[0.3em] mb-32">FIND FOUND</h2>
+            <h1 class="text-6xl font-extrabold leading-[1.1] mb-8">Pengarsip<br>Barang-Barang<br>yang Hilang.</h1>
+            <p class="text-lg opacity-80 leading-relaxed max-w-md">
+                Tempat aman bagi barang yang tertinggal, dibangun berlandaskan kepercayaan, tanggung jawab komunitas, dan desain yang terarah.
+            </p>
                 
                 <!-- Carousel Dots -->
                 <div class="flex gap-3 mt-16">
@@ -81,7 +81,6 @@
                             <input type="checkbox" class="w-4 h-4 mr-2 rounded border-gray-300 text-[#006D77] focus:ring-[#006D77]">
                             Tetap masuk
                         </label>
-                        <a href="#" class="text-xs font-bold text-[#006D77] hover:opacity-80">Lupa Kata Sandi?</a>
                     </div>
 
                     <!-- Login Button -->

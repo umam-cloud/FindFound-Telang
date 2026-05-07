@@ -56,7 +56,17 @@
                     <h2 class="text-4xl font-bold text-gray-900 tracking-tight">Daftar Akun Baru</h2>
                 </header>
 
-                <form action="<?= BASEURL; ?>/register/auth" method="POST" class="space-y-5">
+                <?php if (isset($_SESSION['err'])):?>
+                    <div class="flex items-start gap-3 p-3 rounded-lg bg-red-50 border border-red-200 mb-5">
+                    <svg class="w-5 h-5 text-red-600 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <p class="text-sm text-red-700"><?= $_SESSION['err'] ?></p>
+                    </div>
+                    <?php unset($_SESSION['err'])?>
+                <?php endif?>
+
+                <form action="<?= BASEURL; ?>/auth/register" method="POST" class="space-y-5">
                     <!-- Nama Lengkap -->
                     <div>
                         <label class="block text-[10px] font-bold text-gray-400 uppercase mb-2 tracking-widest">Nama Lengkap</label>
@@ -79,17 +89,10 @@
                     </div>
 
                     <!-- Password Grid -->
-                    <div class="grid grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-[10px] font-bold text-gray-400 uppercase mb-2 tracking-widest">Kata Sandi</label>
-                            <input type="password" name="password" placeholder="••••••••" 
-                                   class="w-full px-5 py-4 bg-gray-100 border-none focus:ring-2 focus:ring-[#006D77] rounded-sm text-sm outline-none text-gray-700 placeholder-gray-300 transition-all">
-                        </div>
-                        <div>
-                            <label class="block text-[10px] font-bold text-gray-400 uppercase mb-2 tracking-widest">Konfirmasi</label>
-                            <input type="password" name="confirm_password" placeholder="••••••••" 
-                                   class="w-full px-5 py-4 bg-gray-100 border-none focus:ring-2 focus:ring-[#006D77] rounded-sm text-sm outline-none text-gray-700 placeholder-gray-300 transition-all">
-                        </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-gray-400 uppercase mb-2 tracking-widest">Kata Sandi</label>
+                        <input type="password" name="password" placeholder="••••••••" 
+                                class="w-full px-5 py-4 bg-gray-100 border-none focus:ring-2 focus:ring-[#006D77] rounded-sm text-sm outline-none text-gray-700 placeholder-gray-300 transition-all">
                     </div>
 
                     <!-- Agreement -->

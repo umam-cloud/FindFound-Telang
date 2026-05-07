@@ -1,8 +1,8 @@
 <!-- Floating Action Button (Lapor Barang) -->
-<button class="fixed bottom-8 right-8 z-50 bg-[#006D77] hover:bg-[#005a63] text-white px-6 py-4 rounded-full shadow-lg shadow-teal-900/30 font-bold flex items-center gap-2 transition-transform transform hover:scale-105">
+<a href="<?=BASEURL?>/auth/logout" class="fixed bottom-8 right-8 z-50 bg-[#006D77] hover:bg-[#005a63] text-white px-6 py-4 rounded-full shadow-lg shadow-teal-900/30 font-bold flex items-center gap-2 transition-transform transform hover:scale-105">
     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
     Lapor Barang
-</button>
+</a>
 
 <main class="max-w-6xl mx-auto px-6 py-12">
     
