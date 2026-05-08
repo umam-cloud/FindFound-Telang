@@ -41,36 +41,62 @@ Dibangun menggunakan **PHP Native dengan pola arsitektur MVC** (tanpa framework)
 ## 📁 Struktur Folder
 
 ```
-findfound-telang/
+FindFound/
+│   README.md
 │
-├── app/
-│   ├── config/
-|   |   |__ conn.php            #constanta setup
-│   │   └── database.php        # Konfigurasi koneksi database
+├───app
+│   │   .htaccess
+│   │   init.php
 │   │
-│   ├── core/
-│   │   ├── App.php             # Router utama
-│   │   ├── Controller.php      # Base controller
-│   │   └── Model.php           # Base model
+│   ├───config
+│   │       conn.php
+│   │       Database.php
 │   │
-│   ├── controllers/
-│   │   ├── Home.php
-│   │   ├── About.php
-│   │   └── Auth.php
+│   ├───controllers
+│   │       About.php
+│   │       Auth.php
+│   │       Home.php
 │   │
+│   ├───core
+│   │       App.php
+│   │       Controller.php
+│   │       Model.php
 │   │
-│   └── views/
-│       ├── templates/          # header, footer
-│       ├── home/
-│       ├── auth/               # login, register
-│       └── about/
+│   ├───models
+│   │       User_model.php
+│   │
+│   └───views
+│       ├───about
+│       │       index.php
+│       │
+│       ├───auth
+│       │       login.php
+│       │       register.php
+│       │
+│       ├───barang
+│       │       create.php
+│       │       detail.php
+│       │       index.php
+│       │
+│       ├───home
+│       │       index.php
+│       │
+│       └───templates
+│               footer.php
+│               header.php
 │
-── public/
-    ├── index.php               # Entry point
-    ├── .htaccess
-    ├── css/
-    ├── js/
-    └── img/
+└───public
+    │   .htaccess
+    │   index.php
+    │
+    ├───css
+    │       style.css
+    │
+    ├───img
+    │       index.txt
+    │
+    └───js
+            script.js
 
 ```
 
@@ -150,7 +176,7 @@ git push origin feat/frontend   # atau feat/backend
 ## ✅ Fitur
 
 - [x] Struktur MVC native PHP
-- [ ] Autentikasi (Login & Register)
+- [x] Autentikasi (Login & Register)
 - [ ] Lapor barang hilang
 - [ ] Lapor barang ditemukan
 - [ ] Pencarian barang
