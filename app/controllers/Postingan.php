@@ -3,7 +3,7 @@
 class Postingan extends Controller{
     public function index(){
         $this->view('templates/header');
-        $this->view('postingan/index');
+        $this->view('postingan/postingan');
         $this->view('templates/footer');
     }
 

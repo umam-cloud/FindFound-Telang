@@ -6,7 +6,7 @@ class Profile extends Controller{
         $user = $user_model->getUserById($_SESSION['id_user']); 
 
         $this->view('templates/header');
-        $this->view('profile/index', $user);
+        $this->view('profile/profile', $user);
         $this->view('templates/footer');
     }
     
