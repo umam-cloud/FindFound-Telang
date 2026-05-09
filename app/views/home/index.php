@@ -1,12 +1,10 @@
-<!-- Floating Action Button (Lapor Barang) -->
-<a href="<?=BASEURL?>/auth/logout" class="fixed bottom-8 right-8 z-50 bg-[#006D77] hover:bg-[#005a63] text-white px-6 py-4 rounded-full shadow-lg shadow-teal-900/30 font-bold flex items-center gap-2 transition-transform transform hover:scale-105">
+<a href="<?=BASEURL?>/laporan/" class="fixed bottom-8 right-8 z-50 bg-[#006D77] hover:bg-[#005a63] text-white px-6 py-4 rounded-full shadow-lg shadow-teal-900/30 font-bold flex items-center gap-2 transition-transform transform hover:scale-105">
     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
     Lapor Barang
 </a>
 
 <main class="max-w-6xl mx-auto px-6 py-12">
     
-    <!-- Hero Section -->
     <div class="mb-10">
         <h1 class="text-5xl font-extrabold tracking-tight text-gray-900 leading-tight">
             Temukan kembali <br>
@@ -14,7 +12,6 @@
         </h1>
     </div>
 
-    <!-- Search Bar -->
     <div class="relative max-w-2xl mb-8">
         <span class="absolute inset-y-0 left-5 flex items-center text-gray-400">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
@@ -22,7 +19,6 @@
         <input type="text" placeholder="Cari barang yang hilang atau ditemukan..." class="w-full bg-gray-200/80 text-gray-700 rounded-full py-4 pl-14 pr-6 focus:outline-none focus:ring-2 focus:ring-[#006D77] transition-all">
     </div>
 
-    <!-- Filter Chips -->
     <div class="flex gap-3 overflow-x-auto no-scrollbar mb-12 pb-2">
         <button class="bg-[#006D77] text-white px-5 py-2 rounded-full text-xs font-bold whitespace-nowrap">Semua</button>
         <button class="bg-gray-200 text-gray-600 hover:bg-gray-300 px-5 py-2 rounded-full text-xs font-bold whitespace-nowrap transition">Hilang</button>
@@ -32,10 +28,8 @@
         <button class="bg-gray-200 text-gray-600 hover:bg-gray-300 px-5 py-2 rounded-full text-xs font-bold whitespace-nowrap transition">Pribadi</button>
     </div>
 
-    <!-- Grid Cards Layout -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         
-        <!-- Card 1: Dompet (Span 2 Kolom) -->
         <div class="bg-white rounded-[2rem] overflow-hidden shadow-sm border border-gray-100 lg:col-span-2 flex flex-col md:flex-row relative">
             <div class="absolute top-6 left-6 z-10 bg-[#D1E9E6] text-[#006D77] text-[10px] font-bold px-3 py-1 rounded-sm uppercase tracking-wider">Hilang</div>
             <img src="https://images.unsplash.com/photo-1627123424574-724758594e93?q=80&w=800" alt="Dompet" class="w-full md:w-1/2 h-64 md:h-auto object-cover">
@@ -50,7 +44,6 @@
             </div>
         </div>
 
-        <!-- Card 2: Kunci Apartemen -->
         <div class="bg-white rounded-[2rem] overflow-hidden shadow-sm border border-gray-100 relative flex flex-col">
             <div class="absolute top-6 left-6 z-10 bg-[#D1E9E6] text-[#006D77] text-[10px] font-bold px-3 py-1 rounded-sm uppercase tracking-wider">Ditemukan</div>
             <img src="https://images.unsplash.com/photo-1582139329536-e7284fece509?q=80&w=800" alt="Kunci" class="w-full h-56 object-cover">
@@ -65,7 +58,6 @@
             </div>
         </div>
 
-        <!-- Card 3: iPhone -->
         <div class="bg-white rounded-[2rem] overflow-hidden shadow-sm border border-gray-100 relative flex flex-col">
             <div class="absolute top-6 left-6 z-10 bg-[#D1E9E6] text-[#006D77] text-[10px] font-bold px-3 py-1 rounded-sm uppercase tracking-wider">Hilang</div>
             <img src="https://www.digimap.co.id/cdn/shop/files/iPhone_13_Starlight_PDP_Image_Position-1A__GBEN_32d66fbc-560a-4c84-8a65-f5a3e9896a2c.jpg?v=1717739307&width=176" alt="iPhone" class="w-full h-56 object-cover">
@@ -80,7 +72,6 @@
             </div>
         </div>
 
-        <!-- Card 4: Anjing (Span 2 Kolom) -->
         <div class="bg-white rounded-[2rem] overflow-hidden shadow-sm border border-gray-100 lg:col-span-2 flex flex-col-reverse md:flex-row relative">
             <div class="absolute top-6 right-6 md:right-auto md:left-[55%] z-10 bg-[#D1E9E6] text-[#006D77] text-[10px] font-bold px-3 py-1 rounded-sm uppercase tracking-wider">Ditemukan</div>
             <div class="p-8 md:p-10 flex flex-col justify-center w-full md:w-1/2">
@@ -95,7 +86,6 @@
             <img src="https://images.unsplash.com/photo-1552053831-71594a27632d?q=80&w=800" alt="Dog" class="w-full md:w-1/2 h-64 md:h-auto object-cover">
         </div>
 
-        <!-- Card 5: Kindle -->
         <div class="bg-white rounded-[2rem] overflow-hidden shadow-sm border border-gray-100 relative flex flex-col">
             <div class="absolute top-6 left-6 z-10 bg-[#D1E9E6] text-[#006D77] text-[10px] font-bold px-3 py-1 rounded-sm uppercase tracking-wider">Hilang</div>
             <img src="https://images.unsplash.com/photo-1592496001020-d31bd830651f?q=80&w=800" alt="Kindle" class="w-full h-56 object-cover bg-gray-100 p-8">
@@ -112,11 +102,10 @@
 
     </div>
 
-    <!-- Load More Button -->
     <div class="mt-16 flex justify-center">
-        <button class="border-2 border-[#006D77] text-[#006D77] hover:bg-[#006D77] hover:text-white px-8 py-3 rounded-full text-sm font-bold transition-all">
+        <a href="<?= BASEURL; ?>/postingan" class="inline-block border-2 border-[#006D77] text-[#006D77] hover:bg-[#006D77] hover:text-white px-8 py-3 rounded-full text-sm font-bold transition-all text-center">
             Lihat Lebih Banyak Postingan
-        </button>
+        </a>
     </div>
 
 </main>
