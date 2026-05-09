@@ -12,7 +12,6 @@ class Auth extends Controller{
         $data = json_decode(file_get_contents('php://input'), true);
         $id_token = $data['token'];
 
-        // Gunakan context untuk melewati verifikasi SSL di localhost
         $arrContextOptions = [
             "ssl" => [
                 "verify_peer" => false,
@@ -39,7 +38,8 @@ class Auth extends Controller{
             }
 
             $_SESSION['login'] = true;
-            $_SESSION['id_user'] = $user['id_user'];
+            $_SESSION['id_user'] = $user['id'];
+            $_SESSION['foto_profil'] = $user['foto_profil'];
             
             header('Content-Type: application/json');
             echo json_encode(['status' => 'success']);
@@ -70,8 +70,8 @@ class Auth extends Controller{
             }
     
             $_SESSION['Login'] = TRUE;
-            $_SESSION['id_user'] = $user['id_user'];
-            $_SESSION['nama'] = $user['nama_lengkap'];
+            $_SESSION['id_user'] = $user['id'];
+            $_SESSION['foto_profil'] = $user['foto_profil'];
     
             header('location: '.BASEURL.'/home');
             exit;
