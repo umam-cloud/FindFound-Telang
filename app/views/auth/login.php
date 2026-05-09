@@ -13,9 +13,7 @@
 </head>
 <body class="bg-white">
     <div class="flex min-h-screen " style="height:100vh">
-        <!-- SISI KIRI: BRANDING (TELANG) -->
         <div class="hidden lg:flex lg:w-1/2 relative bg-[#5E938D] items-center justify-center p-16 overflow-hidden">
-            <!-- Overlay Image (Simulasi image_a20cf4.png) -->
             <div class="absolute inset-0 opacity-30">
                 <img src="https://images.unsplash.com/photo-1516733725897-1aa73b87c8e8?q=80&w=2070" alt="Lens" class="w-full h-full object-cover grayscale">
             </div>
@@ -27,7 +25,6 @@
                 Tempat aman bagi barang yang tertinggal, dibangun berlandaskan kepercayaan, tanggung jawab komunitas, dan desain yang terarah.
             </p>
                 
-                <!-- Carousel Dots -->
                 <div class="flex gap-3 mt-16">
                     <div class="h-1.5 w-10 bg-white rounded-full"></div>
                     <div class="h-1.5 w-3 bg-white/40 rounded-full"></div>
@@ -36,7 +33,6 @@
             </div>
         </div>
 
-        <!-- SISI KANAN: FORM LOGIN -->
         <div class="w-full lg:w-1/2 flex items-center justify-center p-8 sm:p-20">
             <div class="w-full max-w-md">
                 <header class="mb-12">
@@ -54,15 +50,12 @@
                 <?php endif?>
 
                 <form action="<?= BASEURL; ?>/auth/login/" method="POST" class="space-y-7">
-                    <!-- Input Email -->
                     <div>
                         <label class="block text-[10px] font-bold text-gray-400 uppercase mb-3 tracking-widest">Alamat Email</label>
                         <input type="email" name="email" placeholder="archivist@telang.io" 
                                class="w-full px-5 py-4 bg-gray-100 border-none focus:ring-2 focus:ring-[#006D77] rounded-sm text-sm transition-all outline-none text-gray-700 placeholder-gray-300">
                     </div>
                     
-
-                    <!-- Input Password -->
                     <div class="relative">
                         <label class="block text-[10px] font-bold text-gray-400 uppercase mb-3 tracking-widest">Kata Sandi</label>
                         <input type="password" name="password" placeholder="••••••••" 
@@ -75,7 +68,6 @@
                         </button>
                     </div>
 
-                    <!-- Remember & Forgot -->
                     <div class="flex items-center justify-between">
                         <label class="flex items-center text-xs font-bold text-gray-600 cursor-pointer">
                             <input type="checkbox" class="w-4 h-4 mr-2 rounded border-gray-300 text-[#006D77] focus:ring-[#006D77]">
@@ -83,7 +75,6 @@
                         </label>
                     </div>
 
-                    <!-- Login Button -->
                     <button type="submit" class="w-full py-4 bg-[#006D77] hover:bg-[#005a63] text-white font-bold rounded-lg shadow-md flex items-center justify-center gap-2 transition-all transform active:scale-[0.98]">
                         Masuk Sekarang 
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -91,14 +82,12 @@
                         </svg>
                     </button>
 
-                    <!-- OR Divider -->
                     <div class="relative py-2 flex items-center">
                         <div class="flex-grow border-t border-gray-100"></div>
                         <span class="flex-shrink mx-4 text-[10px] font-bold text-gray-300 uppercase tracking-widest">Atau</span>
                         <div class="flex-grow border-t border-gray-100"></div>
                     </div>
 
-                    <!-- Google Button -->
                     <div id="g_id_onload"
                         data-client_id="643694449664-hk2o0r6a2v1fcsn4tb7je6h36cp6fess.apps.googleusercontent.com"
                         data-context="signin"
@@ -118,7 +107,6 @@
                     </div>
                 </form>
 
-                <!-- Footer Sign Up -->
                 <p class="mt-16 text-center text-sm font-medium text-gray-500">
                     Baru di komunitas ini? <a href="<?=BASEURL?>/auth/register" class="text-[#006D77] font-bold border-b-2 border-[#006D77] ml-1 pb-0.5 hover:text-teal-900 transition-colors">Daftar di sini</a>
                 </p>
@@ -127,7 +115,7 @@
     </div>
     <script>
     function handleCredentialResponse(response) {
-        fetch('<?= BASEURL; ?>/auth/googleAuth', { // Sesuaikan URL Controller Anda
+        fetch('<?= BASEURL; ?>/auth/googleAuth', { 
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ token: response.credential })
@@ -135,7 +123,6 @@
         .then(res => res.json())
         .then(data => {
             if(data.status === 'success') {
-                // INI YANG MEMINDAHKAN HALAMAN
                 window.location.href = '<?= BASEURL; ?>/home/';
             } else {
                 console.error(data.message);

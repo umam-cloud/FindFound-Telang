@@ -2,15 +2,13 @@
 <footer class="bg-[#F2F4F5] mt-20 pt-16 pb-12 border-t border-gray-200">
         <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12">
             
-            <!-- Logo & Copyright -->
             <div class="md:col-span-1">
-                <h2 class="text-xl font-bold text-gray-900 mb-4">Telang</h2>
+                <h2 class="text-xl font-bold text-gray-900 mb-4">Find & Found</h2>
                 <p class="text-xs text-gray-500 leading-relaxed">
-                    © 2024 Telang. Dedicated to the stewardship of community belongings.
+                    © 2026 Telang. Dedicated to the stewardship of community belongings.
                 </p>
             </div>
 
-            <!-- Perusahaan -->
             <div>
                 <h3 class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-4">PERUSAHAAN</h3>
                 <ul class="space-y-3 text-xs text-gray-600 font-medium">
@@ -19,7 +17,6 @@
                 </ul>
             </div>
 
-            <!-- Legal -->
             <div>
                 <h3 class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-4">LEGAL</h3>
                 <ul class="space-y-3 text-xs text-gray-600 font-medium">
@@ -28,7 +25,6 @@
                 </ul>
             </div>
 
-            <!-- Sosial -->
             <div>
                 <h3 class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-4">SOSIAL</h3>
                 <div class="flex gap-4 text-gray-500">
