@@ -2,7 +2,7 @@
     <div class="flex flex-col md:flex-row md:items-end justify-between mb-8">
         <div>
             <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight mb-2">Temukan barang yang hilang.</h1>
-            <p class="text-sm text-gray-500 font-medium">128 Hasil ditemukan</p>
+            <p class="text-sm text-gray-500 font-medium"><?=$int?> Hasil ditemukan</p>
         </div>
         <div class="mt-4 md:mt-0 flex items-center gap-2 bg-gray-50/50 px-4 py-2 rounded-full border border-gray-100">
             <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400">Urutan:</span>
@@ -84,58 +84,32 @@
 
         <div class="lg:col-span-3">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <a href="<?=BASEURL?>/postingan/detailPostingan" class="bg-white rounded-[1.5rem] overflow-hidden shadow-sm border border-gray-100 flex flex-col group hover:shadow-md transition-all cursor-grab" >
-                    <div class="relative h-44 bg-gray-200 overflow-hidden">
-                        <span class="absolute top-4 left-4 z-10 bg-[#D1E9E6] text-[#006D77] text-[9px] font-bold px-2.5 py-1 rounded-sm uppercase tracking-widest shadow-sm">Ditemukan</span>
-                        <img src="https://images.unsplash.com/photo-1627123424574-724758594e93?q=80&w=600" alt="Dompet" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                    </div>
-                    <div class="p-6 flex-grow flex flex-col">
-                        <div class="flex justify-between items-start mb-2">
-                            <h3 class="text-base font-bold text-gray-900 pr-4 leading-tight">Dompet Kulit Cokelat</h3>
-                            <button class="text-gray-400 hover:text-[#006D77] transition-colors"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"></path></svg></button>
-                        </div>
-                        <p class="text-xs text-gray-500 mb-6 flex-grow leading-relaxed line-clamp-3">Ditemukan di area Taman Menteng. Berisi beberapa kartu identitas penting atas nama...</p>
-                        <div class="flex items-center justify-between text-[10px] text-gray-400 font-medium pt-4 border-t border-gray-50">
-                            <span class="flex items-center gap-1"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path></svg> Jakarta Pusat</span>
-                            <span class="flex items-center gap-1"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> 2 jam lalu</span>
-                        </div>
-                    </div>
-                </a>
+                <?php foreach ($data as $post):
+                    $jenis = $post['jenis_laporan'];
 
-                <div class="bg-white rounded-[1.5rem] overflow-hidden shadow-sm border border-gray-100 flex flex-col group hover:shadow-md transition-all">
-                    <div class="relative h-44 bg-gray-200 overflow-hidden">
-                        <span class="absolute top-4 left-4 z-10 bg-[#FCE8E8] text-[#D9534F] text-[9px] font-bold px-2.5 py-1 rounded-sm uppercase tracking-widest shadow-sm">Hilang</span>
-                        <img src="https://images.unsplash.com/photo-1603898037225-1db4b25dfedc?q=80&w=600" alt="iPhone" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                    </div>
-                    <div class="p-6 flex-grow flex flex-col">
-                        <div class="flex justify-between items-start mb-2">
-                            <h3 class="text-base font-bold text-gray-900 pr-4 leading-tight">iPhone 13 Pro Teal</h3>
-                            <button class="text-gray-400 hover:text-[#006D77] transition-colors"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"></path></svg></button>
+                    if ($jenis == 'hilang') {
+                        $badgeClass = 'bg-red-100 text-red-800';
+                    }else{
+                        $badgeClass = 'bg-[#D1E9E6] text-[#006D77]';
+                    }?>
+                    <a href="<?=BASEURL?>/postingan/detailPostingan/<?=$post['id']?>" class="bg-white rounded-[1.5rem] overflow-hidden shadow-sm border border-gray-100 flex flex-col group hover:shadow-md transition-all cursor-grab" >
+                        <div class="relative h-44 bg-gray-200 overflow-hidden">
+                            <span class="<?=$badgeClass?> absolute top-4 left-4 z-10 text-[9px] font-bold px-2.5 py-1 rounded-sm uppercase tracking-widest shadow-sm"><?=$post['jenis_laporan']?></span>
+                            <img src="<?=BASEURL?>/img/postingan/<?=$post['file_path']?>" alt="Dompet" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                         </div>
-                        <p class="text-xs text-gray-500 mb-6 flex-grow leading-relaxed line-clamp-3">Terakhir terlihat di dalam gerbong KRL rute Bogor - Jakarta Kota sekitar pukul 08:30...</p>
-                        <div class="flex items-center justify-between text-[10px] text-gray-400 font-medium pt-4 border-t border-gray-50">
-                            <span class="flex items-center gap-1"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path></svg> Stasiun Tebet</span>
-                            <span class="flex items-center gap-1"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> 5 jam lalu</span>
+                        <div class="p-6 flex-grow flex flex-col">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-base font-bold text-gray-900 pr-4 leading-tight"><?=$post['judul']?></h3>
+                                <button class="text-gray-400 hover:text-[#006D77] transition-colors"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"></path></svg></button>
+                            </div>
+                            <p class="text-xs text-gray-500 mb-6 flex-grow leading-relaxed line-clamp-3"><?=$post['deskripsi']?></p>
+                            <div class="flex items-center justify-between text-[10px] text-gray-400 font-medium pt-4 border-t border-gray-50">
+                                <span class="flex items-center gap-1"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path></svg> <?=$post['lokasi_spesifik']?></span>
+                                <span class="flex items-center gap-1"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg><?=$post['tanggal_kejadian']?></span>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="bg-white rounded-[1.5rem] overflow-hidden shadow-sm border border-gray-100 flex flex-col group hover:shadow-md transition-all">
-                    <div class="relative h-44 bg-gray-200 overflow-hidden">
-                        <span class="absolute top-4 left-4 z-10 bg-[#D1E9E6] text-[#006D77] text-[9px] font-bold px-2.5 py-1 rounded-sm uppercase tracking-widest shadow-sm">Ditemukan</span>
-                        <img src="https://images.unsplash.com/photo-1582139329536-e7284fece509?q=80&w=600" alt="Kunci" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                    </div>
-                    <div class="p-6 flex-grow flex flex-col">
-                        <div class="flex justify-between items-start mb-2">
-                            <h3 class="text-base font-bold text-gray-900 pr-4 leading-tight">Kunci Apartemen</h3>
-                            <button class="text-[#006D77] hover:text-teal-900 transition-colors"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"></path></svg></button>
-                        </div>
-                        <p class="text-xs text-gray-500 mb-6 flex-grow leading-relaxed line-clamp-3">Ditemukan di lobi gedung perkantoran area Sudirman. Terdapat gantungan kunci boneka...</p>
-                        <div class="flex items-center justify-between text-[10px] text-gray-400 font-medium pt-4 border-t border-gray-50">
-                            <span class="flex items-center gap-1 truncate max-w-[60%]"><svg class="w-3 h-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path></svg> Sudirman Central</span>
-                            <span class="flex items-center gap-1 flex-shrink-0"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> 1 hari lalu</span>
-                        </div>
-                    </div>
-                </div>
+                    </a>
+                <?php endforeach ?>
                 <div class="md:col-span-2 bg-[#006D77] rounded-[1.5rem] p-8 md:p-10 text-white flex flex-col justify-center relative overflow-hidden shadow-lg mt-2">
                     <div class="absolute right-0 bottom-0 opacity-20 w-1/2 h-full pointer-events-none mix-blend-overlay">
                         <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=400" alt="Map pattern" class="w-full h-full object-cover">

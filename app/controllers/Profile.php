@@ -25,8 +25,8 @@ class Profile extends Controller{
             return;
         }
 
-        $_POST['id'] = $_SESSION['id_user'];
         $data = $_POST;
+        $data['id'] = $_SESSION['id_user'];
 
         if (isset($_FILES['foto_profil']) && $_FILES['foto_profil']['error'] === 0) {
             
