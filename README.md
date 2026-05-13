@@ -177,11 +177,11 @@ git push origin feat/frontend   # atau feat/backend
 
 - [x] Struktur MVC native PHP
 - [x] Autentikasi (Login & Register)
-- [ ] Lapor barang hilang
-- [ ] Lapor barang ditemukan
+- [x] Lapor barang hilang
+- [x] Lapor barang ditemukan
 - [ ] Pencarian barang
-- [ ] Detail barang
-- [ ] Upload foto barang
+- [x] Detail barang
+- [x] Upload foto barang
 - [ ] Dashboard admin
 
 ---
