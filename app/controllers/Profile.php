@@ -4,9 +4,13 @@ class Profile extends Controller{
     public function index(){
         $user_model = $this->model('user_model');
         $user = $user_model->getUserById($_SESSION['id_user']); 
+        $post_model = $this->model('post_model');
+        $post = $post_model->getPostByIdUser($_SESSION['id_user']);
+        $data['profile'] = $user;
+        $data['post'] = $post;
 
         $this->view('templates/header');
-        $this->view('profile/profile', $user);
+        $this->view('profile/profile', $data);
         $this->view('templates/footer');
     }
     

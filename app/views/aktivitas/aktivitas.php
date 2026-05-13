@@ -25,25 +25,18 @@
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
             </div>
         </div>
-
-        <!-- <div class="bg-white p-6 md:p-8 rounded-[1.5rem] shadow-sm border border-gray-100 flex justify-between items-end hover:shadow-md transition-shadow">
-            <div>
-                <p class="text-[11px] font-bold text-gray-400 mb-2 uppercase tracking-widest">Menunggu</p>
-                <h3 class="text-4xl font-extrabold text-[#006D77] leading-none">05</h3>
-            </div>
-            <div class="text-[#006D77] bg-[#D1E9E6]/50 p-3 rounded-xl">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-            </div>
-        </div> -->
     </div>
 
     <div class="flex gap-8 border-b border-gray-200 mb-8">
-        <button class="pb-4 text-xs font-bold text-[#006D77] border-b-2 border-[#006D77] tracking-wide transition-colors">Postingan Saya</button>
-        <button class="pb-4 text-xs font-bold text-gray-400 hover:text-gray-600 tracking-wide transition-colors">Barang Dilaporkan</button>
+        <button id="tab-postingan" onclick="switchTab('postingan')" class="tab-btn pb-4 text-xs font-bold text-[#006D77] border-b-2 border-[#006D77] tracking-wide transition-colors">Postingan Saya</button>
+        <button id="tab-dilaporkan" onclick="switchTab('dilaporkan')" class="tab-btn pb-4 text-xs font-bold text-gray-400 hover:text-gray-600 tracking-wide transition-colors border-b-2 border-transparent">Barang Dilaporkan</button>
     </div>
 
     <div class="flex flex-col gap-4">
-        <?php foreach ($data as $post):?>
+        <?php foreach ($data as $post):
+            $tanggal = isset($post['created_at']) ? date('d - m - Y', strtotime($post['created_at'])) : 'Tanggal tidak diketahui';
+            $status = $post['status'] == 'aktif';
+            $btnColor = ($status) ? 'bg-[#D1E9E6] text-[#006D77]' : 'bg-gray-200 text-gray-600' ?>
 
             <div class="bg-white p-4 md:p-5 rounded-[1.5rem] shadow-sm border border-gray-100 flex flex-col md:flex-row md:items-center gap-5 hover:shadow-md transition-all group">
                 <div class="w-full md:w-32 h-24 rounded-xl overflow-hidden shrink-0 bg-gray-100 relative">
@@ -52,15 +45,28 @@
                 <div class="flex-grow">
                     <h4 class="font-bold text-gray-900 text-lg mb-2"><?=$post['judul']?></h4>
                     <div class="flex items-center gap-5 text-[11px] text-gray-500 font-medium">
-                        <span class="flex items-center gap-1.5"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg><?=$post['tanggal_kejadian']?></span>
+                        <span class="flex items-center gap-1.5"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg><?=$tanggal?></span>
                         <span class="flex items-center gap-1.5"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path></svg><?=$post['lokasi_spesifik']?></span>
                     </div>
                 </div>
                 <div class="flex items-center justify-between md:justify-end gap-6 w-full md:w-auto mt-2 md:mt-0 pt-4 md:pt-0 border-t border-gray-50 md:border-none">
-                    <span class="bg-[#D1E9E6] text-[#006D77] text-[9px] font-bold px-3 py-1.5 rounded uppercase tracking-widest">Aktif</span>
-                    <button class="text-gray-400 hover:text-gray-900 transition-colors p-2">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></path></svg>
-                    </button>
+                    <span class="<?=$btnColor?> text-[9px] font-bold px-3 py-1.5 rounded uppercase tracking-widest"><?=$post['status']?></span>
+                    <div class="relative group-menu">
+                        <button onclick="toggleMenu(event, 'menu-<?=$post['id']?>')" class="text-gray-400 hover:text-gray-900 transition-colors p-2">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></path></svg>
+                        </button>
+                        
+                        <div id="menu-<?=$post['id']?>" class="hidden absolute right-1/2 translate-x-1/2 mt-2 w-32 bg-white border border-gray-100 rounded-xl shadow-lg z-50 overflow-hidden">
+                            <?php if ($post['status'] == 'aktif'):?>
+                                <a href="<?=BASEURL?>/aktivitas/editPostingan/<?=$post['id']?>" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2">
+                                    Edit
+                                </a>
+                            <?php endif ?>
+                            <button onclick="confirmDelete('<?=$post['id']?>')" class="w-full text-left block px-4 py-2 text-sm text-red-600 hover:bg-red-50 flex items-center gap-2">
+                                Hapus
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -75,3 +81,44 @@
     </div>
 
 </main>
+
+<script>
+function toggleMenu(event, menuId) {
+    event.stopPropagation(); 
+    document.querySelectorAll('[id^="menu-"]').forEach(menu => {
+        if (menu.id !== menuId) menu.classList.add('hidden');
+    });
+
+    const menu = document.getElementById(menuId);
+    menu.classList.toggle('hidden');
+}
+
+window.onclick = function(event) {
+    if (!event.target.closest('.group-menu')) {
+        document.querySelectorAll('[id^="menu-"]').forEach(menu => {
+            menu.classList.add('hidden');
+        });
+    }
+}
+
+function confirmDelete(id) {
+    if (confirm('Apakah Anda yakin ingin menghapus postingan ini?')) {
+        window.location.href = `<?=BASEURL?>/aktivitas/delete/${id}`;
+    }
+}
+
+function switchTab(tabName) {
+    const tabs = document.querySelectorAll('.tab-btn');
+    
+    tabs.forEach(tab => {
+        tab.classList.remove('text-[#006D77]', 'border-[#006D77]');
+        tab.classList.add('text-gray-400', 'border-transparent');
+    });
+
+    const activeTab = document.getElementById(`tab-${tabName}`);
+    activeTab.classList.remove('text-gray-400', 'border-transparent');
+    activeTab.classList.add('text-[#006D77]', 'border-[#006D77]');
+
+    console.log("Pindah ke tab: " + tabName);
+}
+</script>

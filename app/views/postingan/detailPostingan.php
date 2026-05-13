@@ -33,7 +33,7 @@
                 <div class="flex gap-12 border-b border-gray-100 pb-6 mb-6">
                     <div>
                         <p class="text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">ID Postingan</p>
-                        <p class="text-sm font-bold text-gray-900">TLG-88291-JKT</p>
+                        <p class="text-sm font-bold text-gray-900"><?=$data['kode_postingan']?></p>
                     </div>
                     <div>
                         <p class="text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">Waktu Temuan</p>

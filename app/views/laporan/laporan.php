@@ -45,7 +45,7 @@
                 <h3 class="font-bold text-gray-900 mb-2">Bukti Visual</h3>
                 <p class="text-[11px] text-gray-600 font-medium leading-relaxed max-w-xs" id="instruction">Unggah foto barang yang jelas. Maksimal 10MB<br>(JPG, PNG).</p>
             </div>
-            <input type="file" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" id="input_foto" name="foto_laporan">
+            <input type="file" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" id="input_foto" name="foto_postingan">
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-8 mb-8">

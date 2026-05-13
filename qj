@@ -1,0 +1,211 @@
+[33mcommit df267d82f9a05821d5091e25e8b44ace02757745[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m
+Author: umam-cloud <fatihulumam1617@gmail.com>
+Date:   Mon May 11 18:56:25 2026 +0700
+
+    feat: menambahkan database sql
+
+[33mcommit 4aaba4541e95821a4f99255b33a51996e543fc53[m
+Author: umam-cloud <fatihulumam1617@gmail.com>
+Date:   Mon May 11 18:54:00 2026 +0700
+
+    feat: tambah laporan, koneksi halaman dengan database, dan penyesuaian tampilan
+
+[33mcommit 6b039a81e76614120b4f0222e02f3b8780601f84[m
+Author: umam-cloud <fatihulumam1617@gmail.com>
+Date:   Sat May 9 18:35:52 2026 +0700
+
+    feat: mengubah nama file
+
+[33mcommit b0e715e294d9f6259d821f8cfc605ef4734e6c00[m
+Merge: a8d6220 ea13e4d
+Author: umam-cloud <fatihulumam1617@gmail.com>
+Date:   Sat May 9 17:43:06 2026 +0700
+
+    Merge branch 'main' of https://github.com/umam-cloud/FindFound-Telang
+
+[33mcommit a8d62200afa075396ed6d4cb4c9acaade1ba4009[m
+Author: umam-cloud <fatihulumam1617@gmail.com>
+Date:   Sat May 9 17:43:00 2026 +0700
+
+    gambar gw
+
+[33mcommit 482ea80d76836685d3e90d8cf4792d987a52c2b3[m
+Author: umam-cloud <fatihulumam1617@gmail.com>
+Date:   Sat May 9 17:42:40 2026 +0700
+
+    feat: tambah tampilan profile dan fitur edit profile
+
+[33mcommit 38edbdb56dfc441e8913bde4e02c6ef1eb83f666[m
+Author: umam-cloud <fatihulumam1617@gmail.com>
+Date:   Sat May 9 17:41:29 2026 +0700
+
+    feat: menghapus komen
+
+[33mcommit dd8e81800bd1926bc9cfff3df72dae85ef5f9178[m
+Author: umam-cloud <fatihulumam1617@gmail.com>
+Date:   Sat May 9 17:39:03 2026 +0700
+
+    feat: mengubah text
+
+[33mcommit c952ebefdf63c1c44eb3d56a8d3f95d95e894b68[m
+Author: umam-cloud <fatihulumam1617@gmail.com>
+Date:   Sat May 9 17:38:10 2026 +0700
+
+    feat: tambah tampilan laporan, postingan
+
+[33mcommit 44dc75ee7cc6a1da79c1635a787ed64f3237b088[m
+Author: umam-cloud <fatihulumam1617@gmail.com>
+Date:   Sat May 9 17:35:48 2026 +0700
+
+    feat: tambah method updateData di user model
+
+[33mcommit 391bba7e280cdc03ef770d54dfb6f082f503440c[m
+Author: umam-cloud <fatihulumam1617@gmail.com>
+Date:   Sat May 9 17:34:55 2026 +0700
+
+    fix: mengubah variable koneksi DB
+
+[33mcommit 83830f2b98c4590d51c8890b0130884e4eaa43ba[m
+Author: umam-cloud <fatihulumam1617@gmail.com>
+Date:   Sat May 9 17:33:49 2026 +0700
+
+    feat: tambah controller profile dan fitur edit profile
+
+[33mcommit dff04cb3334bc26e118fbf902e68717439d282e6[m
+Author: umam-cloud <fatihulumam1617@gmail.com>
+Date:   Sat May 9 17:32:44 2026 +0700
+
+    feat: tambah controller aktivitas, laporan, dan postingan
+
+[33mcommit ea13e4da4cde32787a4e70a3e62f7e3a8a91edb0[m
+Author: M. Fatihul Umam <fatihulumam1617@gmail.com>
+Date:   Fri May 8 15:35:19 2026 +0700
+
+    docs: update Fitur & Tree folder in README.MD
+
+[33mcommit 9b2941b2cedd3bc8828c8feae320046dfdfb99da[m
+Author: umam-cloud <fatihulumam1617@gmail.com>
+Date:   Thu May 7 21:48:03 2026 +0700
+
+    feat: tambah tampilan error di halaman login dan register
+
+[33mcommit 60b72544e428dfa8275a3b06b2e84e7e374e278d[m
+Author: umam-cloud <fatihulumam1617@gmail.com>
+Date:   Thu May 7 21:47:18 2026 +0700
+
+    fix: perbaikan variable di user model
+
+[33mcommit beaa1e802f2e84dd8062a77c48ec30affa51511c[m
+Author: umam-cloud <fatihulumam1617@gmail.com>
+Date:   Thu May 7 21:46:28 2026 +0700
+
+    feat: proteksi halaman home redirect ke login
+
+[33mcommit 395d6c5fcac5c3f243036bbad0d2ce11522b5ebc[m
+Author: umam-cloud <fatihulumam1617@gmail.com>
+Date:   Thu May 7 21:45:59 2026 +0700
+
+    feat: implementasi sistem login dan register di auth controller
+
+[33mcommit 57960d8a963cb1cbc6fe7f3e7e5de7f54e712645[m
+Author: umam-cloud <fatihulumam1617@gmail.com>
+Date:   Thu May 7 17:58:49 2026 +0700
+
+    start session
+
+[33mcommit 53f1c9033b99e1beacedfb7f5013f3c1f0eb87ae[m
+Author: umam-cloud <fatihulumam1617@gmail.com>
+Date:   Thu May 7 17:58:04 2026 +0700
+
+    menambah koneksi controller
+
+[33mcommit 758444b66c5537b549aeb92213842a97f05bef7f[m
+Author: umam-cloud <fatihulumam1617@gmail.com>
+Date:   Thu May 7 17:57:18 2026 +0700
+
+    feat: tambah tampilan header & footer
+
+[33mcommit 082576e6ed52618c6bab2a1031105a19aaf725b2[m
+Author: umam-cloud <fatihulumam1617@gmail.com>
+Date:   Thu May 7 17:56:47 2026 +0700
+
+    feat: tambah tampilan halaman home index
+
+[33mcommit a087ca3feb0f3b4deb68a0bce91803d3a298b3f9[m
+Author: umam-cloud <fatihulumam1617@gmail.com>
+Date:   Thu May 7 17:56:21 2026 +0700
+
+    feat: tambah tampilan halaman login dan register
+
+[33mcommit d7946bcb8c52f1bfc00b257d1fc43d63145f63fe[m
+Author: umam-cloud <fatihulumam1617@gmail.com>
+Date:   Thu May 7 17:54:43 2026 +0700
+
+    feat : membuat constanta variable
+
+[33mcommit 0f6753d2f2be87d5bf0b9139d614305655cc2a9f[m
+Author: umam-cloud <fatihulumam1617@gmail.com>
+Date:   Thu May 7 17:53:41 2026 +0700
+
+    feat : Koneksi Database
+
+[33mcommit 89ccb5210f79536e8cfb77f89f82343f3c43b987[m
+Merge: dc2c339 ec2b2dc
+Author: umam-cloud <fatihulumam1617@gmail.com>
+Date:   Thu May 7 17:49:05 2026 +0700
+
+    feat : Koneksi Database
+
+[33mcommit dc2c339d606bb3b16f36510e459b0bb323d9841e[m
+Author: umam-cloud <fatihulumam1617@gmail.com>
+Date:   Thu May 7 17:40:31 2026 +0700
+
+    feat: add user model
+
+[33mcommit 77a0752b913780b716fb1a804610cdcd33fbe24f[m
+Author: umam-cloud <fatihulumam1617@gmail.com>
+Date:   Thu May 7 17:38:37 2026 +0700
+
+    feat: menambahkan controller untuk mengarah ke model
+
+[33mcommit cf4d0b0162d0bf3c0956f06f53d7e69e95b74ad1[m
+Author: umam-cloud <fatihulumam1617@gmail.com>
+Date:   Thu May 7 17:34:53 2026 +0700
+
+    feat: implementasi sistem login dengan session & Login Menggunakan Login google
+
+[33mcommit ec2b2dc71889ece0a67d72e92aa429fba4d23c6a[m
+Author: M. Fatihul Umam <fatihulumam1617@gmail.com>
+Date:   Tue May 5 21:35:51 2026 +0700
+
+    docs: update README.md
+
+[33mcommit f04ee8ea73124b47d97890349293f14051f659ec[m
+Author: umam-cloud <fatihulumam1617@gmail.com>
+Date:   Tue May 5 21:23:57 2026 +0700
+
+    feat: init folder structure mvc native php
+
+[33mcommit c6d735daa2631ac1e62ec16b1e68e18543cc7417[m
+Author: M. Fatihul Umam <fatihulumam1617@gmail.com>
+Date:   Tue May 5 20:58:39 2026 +0700
+
+    docs: update README.md
+
+[33mcommit 13073665d079542f3b758f2b8efe0b26705ea705[m
+Author: M. Fatihul Umam <fatihulumam1617@gmail.com>
+Date:   Tue May 5 20:57:47 2026 +0700
+
+    docs: update README.md
+
+[33mcommit 4f648dc55e7e8e441c39015c18e0f528b8b1d9b9[m
+Author: M. Fatihul Umam <fatihulumam1617@gmail.com>
+Date:   Tue May 5 20:56:41 2026 +0700
+
+    docs: add README.md
+
+[33mcommit 4674748e12287a8554e7f08a5557a6aa6e3e2a9b[m
+Author: M. Fatihul Umam <fatihulumam1617@gmail.com>
+Date:   Tue May 5 20:49:07 2026 +0700
+
+    Initial commit

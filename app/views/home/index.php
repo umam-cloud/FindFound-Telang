@@ -31,7 +31,7 @@
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         
        <?php foreach($data as $index => $post):
-            $tanggal = isset($post['created_at']) ? date('d M Y', strtotime($post['created_at'])) : 'Tanggal tidak diketahui';
+            $tanggal = isset($post['created_at']) ? date('d - m - Y', strtotime($post['created_at'])) : 'Tanggal tidak diketahui';
             $status = $post['status'];
             $jenis = $post['jenis_laporan'];
 

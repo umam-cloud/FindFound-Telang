@@ -2,7 +2,7 @@
     <div class="flex flex-col md:flex-row md:items-end justify-between mb-8">
         <div>
             <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight mb-2">Temukan barang yang hilang.</h1>
-            <p class="text-sm text-gray-500 font-medium"><?=$int?> Hasil ditemukan</p>
+            <p class="text-sm text-gray-500 font-medium"><?=$data['total_data']?> Hasil ditemukan</p>
         </div>
         <div class="mt-4 md:mt-0 flex items-center gap-2 bg-gray-50/50 px-4 py-2 rounded-full border border-gray-100">
             <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400">Urutan:</span>
@@ -84,7 +84,8 @@
 
         <div class="lg:col-span-3">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <?php foreach ($data as $post):
+                <?php foreach ($data['postingan'] as $post):
+                    $tanggal = isset($post['created_at']) ? date('d - m - Y', strtotime($post['created_at'])) : 'Tanggal tidak diketahui';
                     $jenis = $post['jenis_laporan'];
 
                     if ($jenis == 'hilang') {
@@ -105,41 +106,50 @@
                             <p class="text-xs text-gray-500 mb-6 flex-grow leading-relaxed line-clamp-3"><?=$post['deskripsi']?></p>
                             <div class="flex items-center justify-between text-[10px] text-gray-400 font-medium pt-4 border-t border-gray-50">
                                 <span class="flex items-center gap-1"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path></svg> <?=$post['lokasi_spesifik']?></span>
-                                <span class="flex items-center gap-1"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg><?=$post['tanggal_kejadian']?></span>
+                                <span class="flex items-center gap-1"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg><?=$tanggal?></span>
                             </div>
                         </div>
                     </a>
                 <?php endforeach ?>
-                <div class="md:col-span-2 bg-[#006D77] rounded-[1.5rem] p-8 md:p-10 text-white flex flex-col justify-center relative overflow-hidden shadow-lg mt-2">
-                    <div class="absolute right-0 bottom-0 opacity-20 w-1/2 h-full pointer-events-none mix-blend-overlay">
-                        <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=400" alt="Map pattern" class="w-full h-full object-cover">
-                    </div>
-                    
-                    <div class="relative z-10 max-w-sm">
-                        <p class="text-[10px] font-bold uppercase tracking-widest text-teal-200 mb-3">Informasi Komunitas</p>
-                        <h2 class="text-2xl font-bold mb-4 leading-tight">Bantu tingkatkan keamanan di area Anda.</h2>
-                        <p class="text-sm text-teal-50 opacity-90 leading-relaxed mb-8">
-                            Aktifkan notifikasi untuk mendapatkan pemberitahuan instan saat ada barang yang hilang atau ditemukan di radius 5km dari posisi Anda.
-                        </p>
-                        <button class="bg-white text-[#006D77] px-6 py-3 rounded-full text-xs font-bold shadow-md hover:bg-gray-50 transition-colors w-max">
-                            Aktifkan Sekarang
-                        </button>
-                    </div>
-                </div>
 
             </div>
-            <div class="flex justify-center items-center gap-2 mt-16">
-                <button class="w-8 h-8 rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200 flex items-center justify-center transition-colors">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-                </button>
-                <button class="w-8 h-8 rounded-full bg-[#006D77] text-white flex items-center justify-center font-bold text-xs shadow-md">1</button>
-                <button class="w-8 h-8 rounded-full bg-transparent text-gray-600 hover:bg-gray-100 flex items-center justify-center font-bold text-xs transition-colors">2</button>
-                <button class="w-8 h-8 rounded-full bg-transparent text-gray-600 hover:bg-gray-100 flex items-center justify-center font-bold text-xs transition-colors">3</button>
-                <span class="text-gray-400 font-bold text-xs px-1">...</span>
-                <button class="w-8 h-8 rounded-full bg-transparent text-gray-600 hover:bg-gray-100 flex items-center justify-center font-bold text-xs transition-colors">12</button>
-                <button class="w-8 h-8 rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200 flex items-center justify-center transition-colors">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                </button>
+            <div class="flex justify-center items-center gap-2 mt-16 mb-12">
+                <?php if ($data['halaman_aktif'] > 1 ):?>
+                    <a href="?halaman=<?= $data['halaman_aktif'] - 1 ?>" class="w-8 h-8 rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200 flex items-center justify-center transition-colors">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                    </a>
+                <?php endif ?>
+
+                <?php for ($i = 1; $i <= $data['total_halaman']; $i++) : ?>
+                    <a href="?halaman=<?= $i ?>" 
+                    class="w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs transition-all 
+                    <?= ($i == $data['halaman_aktif']) ? 'bg-[#006D77] text-white shadow-md' : 'bg-transparent text-gray-600 hover:bg-gray-100' ?>">
+                        <?= $i ?>
+                    </a>
+                <?php endfor; ?>
+
+                <?php if ($data['halaman_aktif'] < $data['total_halaman']) : ?>
+                    <a href="?halaman=<?= $data['halaman_aktif'] + 1 ?>" class="w-8 h-8 rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200 flex items-center justify-center transition-colors">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    </a>
+                <?php endif; ?>
+            </div>
+
+            <div class="md:col-span-2 bg-[#006D77] rounded-[1.5rem] p-8 md:p-10 text-white flex flex-col justify-center relative overflow-hidden shadow-lg mt-2">
+                <div class="absolute right-0 bottom-0 opacity-20 w-1/2 h-full pointer-events-none mix-blend-overlay">
+                    <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=400" alt="Map pattern" class="w-full h-full object-cover">
+                </div>
+                
+                <div class="relative z-10 max-w-sm">
+                    <p class="text-[10px] font-bold uppercase tracking-widest text-teal-200 mb-3">Informasi Komunitas</p>
+                    <h2 class="text-2xl font-bold mb-4 leading-tight">Bantu tingkatkan keamanan di area Anda.</h2>
+                    <p class="text-sm text-teal-50 opacity-90 leading-relaxed mb-8">
+                        Aktifkan notifikasi untuk mendapatkan pemberitahuan instan saat ada barang yang hilang atau ditemukan di radius 5km dari posisi Anda.
+                    </p>
+                    <button class="bg-white text-[#006D77] px-6 py-3 rounded-full text-xs font-bold shadow-md hover:bg-gray-50 transition-colors w-max">
+                        Aktifkan Sekarang
+                    </button>
+                </div>
             </div>
 
         </div>
