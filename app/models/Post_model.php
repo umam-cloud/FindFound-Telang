@@ -52,7 +52,7 @@ class Post_model{
         $this->db->bind('tanggal', $data['tanggal']);
         $this->db->bind('lokasi', $data['lokasi']);
         $this->db->bind('gambar', $data['foto_postingan']);
-        
+
         return $this->db->execute();
     }
 
@@ -109,24 +109,48 @@ class Post_model{
         return $this->db->resultsingel();
     }
 
-    public function getRowAllPost(){
-        $this->db->query('SELECT *
-            FROM postingan');
+    public function getPostPagination($filters ,$offset, $limit, $urutan) {
+        $filterKondisi = "WHERE 1=1"; 
+        if(!empty($filters['kategori'])) {
+            $kategoris = "'" . implode("','", $filters['kategori']) . "'";
+            $filterKondisi .= " AND kategori_id IN ($kategoris)";
+        }
 
-        $this->db->resultset();
+        if($filters['status'] !== 'semua') {
+            $filterKondisi .= " AND jenis_laporan = :status";
+        }
 
-        return $this->db->rowcount();
-    }
+        if($filters['waktu'] !== 'all') {
+            $hari = (int)$filters['waktu'];
+            $filterKondisi .= " AND created_at >= DATE_SUB(NOW(), INTERVAL $hari DAY)";
+        }
 
-    public function getPostPagination($offset, $limit) {
-        $this->db->query('SELECT * FROM postingan 
-                        ORDER BY created_at DESC 
-                        LIMIT :offset, :limit');
+        $query = "SELECT COUNT(*) as total FROM postingan ". $filterKondisi;
+        $this->db->query($query);
+
+        if($filters['status'] !== 'semua') {
+            $this->db->bind('status', $filters['status']);
+        }
+        
+        $result = $this->db->resultsingel(); 
+        $totalData = $result['total'] ?? 0;
+
+        $query = "SELECT * FROM postingan ".$filterKondisi." ORDER BY created_at $urutan LIMIT :offset, :limit";
+        $this->db->query($query);
+
+        if($filters['status'] !== 'semua') {
+            $this->db->bind('status', $filters['status']);
+        }
         
         $this->db->bind('offset', $offset);
         $this->db->bind('limit', $limit);
 
-        return $this->db->resultset();
+        $postingan = $this->db->resultset();
+
+        return [
+            'data' => $postingan,
+            'jumlahData' => $totalData
+            ];
     }
 
     public function updateStatus($id){

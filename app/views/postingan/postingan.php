@@ -1,3 +1,9 @@
+<?php 
+    $filterKategori = $data['filters']['kategori'];
+    $filterStatus = $data['filters']['status'];
+    $filterWaktu = $data['filters']['waktu'];
+?>
+
 <main class="max-w-7xl mx-auto px-6 py-10 md:py-14">
     <div class="flex flex-col md:flex-row md:items-end justify-between mb-8">
         <div>
@@ -6,9 +12,12 @@
         </div>
         <div class="mt-4 md:mt-0 flex items-center gap-2 bg-gray-50/50 px-4 py-2 rounded-full border border-gray-100">
             <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400">Urutan:</span>
-            <select class="bg-transparent border-none text-[#006D77] font-bold text-sm focus:ring-0 outline-none cursor-pointer appearance-none pr-4 relative">
-                <option value="terbaru" selected>Terbaru</option>
-                <option value="terlama">Terlama</option>
+            <select 
+                onchange="location = this.value;" 
+                class="bg-transparent border-none text-[#006D77] font-bold text-sm focus:ring-0 outline-none cursor-pointer appearance-none pr-4 relative">
+                
+                <option value="terbaru" <?= (!isset($data['urutan']) || $data['urutan'] == 'terbaru') ? 'selected' : '' ?>>Terbaru</option>
+                <option value="terlama" <?= (isset($data['urutan']) && $data['urutan'] == 'terlama') ? 'selected' : '' ?>>Terlama</option>
             </select>
             <svg class="w-3 h-3 text-[#006D77] -ml-4 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
         </div>
@@ -22,65 +31,74 @@
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-4 gap-10">
-        <aside class="lg:col-span-1 flex flex-col gap-8">
-            <div>
-                <h3 class="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-4 flex items-center gap-2">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
-                    Kategori
-                </h3>
-                <div class="flex flex-col gap-3">
-                    <label class="flex items-center gap-3 cursor-pointer group">
-                        <input type="checkbox" class="w-4 h-4 rounded-sm border-gray-300 text-[#006D77] focus:ring-[#006D77]">
-                        <span class="text-sm text-gray-600 group-hover:text-gray-900 transition-colors">Elektronik</span>
-                    </label>
-                    <label class="flex items-center gap-3 cursor-pointer group">
-                        <input type="checkbox" checked class="w-4 h-4 rounded-sm border-gray-300 text-[#006D77] focus:ring-[#006D77]">
-                        <span class="text-sm text-gray-900 font-medium">Dokumen & Dompet</span>
-                    </label>
-                    <label class="flex items-center gap-3 cursor-pointer group">
-                        <input type="checkbox" class="w-4 h-4 rounded-sm border-gray-300 text-[#006D77] focus:ring-[#006D77]">
-                        <span class="text-sm text-gray-600 group-hover:text-gray-900 transition-colors">Pakaian</span>
-                    </label>
-                    <label class="flex items-center gap-3 cursor-pointer group">
-                        <input type="checkbox" class="w-4 h-4 rounded-sm border-gray-300 text-[#006D77] focus:ring-[#006D77]">
-                        <span class="text-sm text-gray-600 group-hover:text-gray-900 transition-colors">Lainnya</span>
-                    </label>
+        <form action="<?=BASEURL?>/postingan/" method="POST">
+            <aside class="lg:col-span-1 flex flex-col gap-8">
+                <div>
+                    <h3 class="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-4 flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+                        Kategori
+                    </h3>
+                    <div class="flex flex-col gap-3">
+                        <?php foreach($data['kategori'] as $kategori):?>
+                            <label class="flex items-center gap-3 cursor-pointer group">
+                                <input type="checkbox" class="w-4 h-4 rounded-sm border-gray-300 text-[#006D77] focus:ring-[#006D77]" name="kategori[]" value="<?=$kategori['id']?>" <?= in_array($kategori['id'], $filterKategori) ? 'checked' : ''; ?>>
+                                <span class="text-sm text-gray-600 group-hover:text-gray-900 transition-colors"><?=$kategori['nama_kategori']?></span>
+                            </label>
+                        <?php endforeach ?>
+                    </div>
                 </div>
-            </div>
-
-            <div>
-                <h3 class="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-4 flex items-center gap-2">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    Status
-                </h3>
-                <div class="flex bg-gray-100 rounded-full p-1 border border-gray-200/50">
-                    <button class="flex-1 bg-[#006D77] text-white text-[10px] font-bold py-2 rounded-full shadow-sm tracking-wide">Semua</button>
-                    <button class="flex-1 text-gray-500 hover:text-gray-800 text-[10px] font-bold py-2 rounded-full tracking-wide transition-colors">Hilang</button>
-                    <button class="flex-1 text-gray-500 hover:text-gray-800 text-[10px] font-bold py-2 rounded-full tracking-wide transition-colors">Ditemukan</button>
+    
+               <div>
+                    <h3 class="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-4 flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        Status
+                    </h3>
+                    <div class="flex bg-gray-100 rounded-full p-1 border border-gray-200/50">
+                        <div class="flex-1">
+                            <input type="radio" name="status" value="semua" id="status-semua" class="hidden peer" <?= ($filterStatus == 'semua') ? 'checked' : ''; ?>>
+                            <label for="status-semua" class="block w-full text-center py-2 rounded-full text-[10px] font-bold tracking-wide text-gray-500 cursor-pointer transition-all peer-checked:bg-[#006D77] peer-checked:text-white peer-checked:shadow-sm">
+                                Semua
+                            </label>
+                        </div>
+    
+                        <div class="flex-1">
+                            <input type="radio" name="status" value="hilang" id="status-hilang" class="hidden peer" <?= ($filterStatus == 'hilang') ? 'checked' : ''; ?>>
+                            <label for="status-hilang" class="block w-full text-center py-2 rounded-full text-[10px] font-bold tracking-wide text-gray-500 cursor-pointer transition-all peer-checked:bg-[#006D77] peer-checked:text-white peer-checked:shadow-sm">
+                                Hilang
+                            </label>
+                        </div>
+    
+                        <div class="flex-1">
+                            <input type="radio" name="status" value="temuan" id="status-ditemukan" class="hidden peer" <?= ($filterStatus == 'temuan') ? 'checked' : ''; ?>>
+                            <label for="status-ditemukan" class="block w-full text-center py-2 rounded-full text-[10px] font-bold tracking-wide text-gray-500 cursor-pointer transition-all peer-checked:bg-[#006D77] peer-checked:text-white peer-checked:shadow-sm">
+                                Ditemukan
+                            </label>
+                        </div>
+                    </div>
                 </div>
-            </div>
-
-            <div>
-                <h3 class="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-4 flex items-center gap-2">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                    Rentang Waktu
-                </h3>
-                <div class="relative">
-                    <select class="w-full bg-gray-100 border-none text-gray-700 text-xs font-bold py-3.5 px-4 rounded-xl focus:ring-2 focus:ring-[#006D77] outline-none appearance-none cursor-pointer">
-                        <option value="7">7 Hari Terakhir</option>
-                        <option value="30">30 Hari Terakhir</option>
-                        <option value="all">Semua Waktu</option>
-                    </select>
-                    <span class="absolute inset-y-0 right-4 flex items-center pointer-events-none text-gray-500">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                    </span>
+    
+                <div>
+                    <h3 class="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-4 flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                        Rentang Waktu
+                    </h3>
+                    <div class="relative">
+                        <select class="w-full bg-gray-100 border-none text-gray-700 text-xs font-bold py-3.5 px-4 rounded-xl focus:ring-2 focus:ring-[#006D77] outline-none appearance-none cursor-pointer" name="waktu">
+                            <option value="all" <?= ($filterWaktu == 'all') ? 'selected' : ''; ?>>Semua Waktu</option>
+                            <option value="7" <?= ($filterWaktu == '7') ? 'selected' : ''; ?>>7 Hari Terakhir</option>
+                            <option value="30"<?= ($filterWaktu == '30') ? 'selected' : ''; ?>>30 Hari Terakhir</option>
+                        </select>
+                        <span class="absolute inset-y-0 right-4 flex items-center pointer-events-none text-gray-500">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </span>
+                    </div>
                 </div>
-            </div>
-
-            <button class="w-full bg-[#006D77] hover:bg-[#005a63] text-white py-3.5 rounded-full text-sm font-bold shadow-md transition-all active:scale-[0.98] mt-2">
-                Terapkan Filter
-            </button>
-        </aside>
+    
+                <button class="w-full bg-[#006D77] hover:bg-[#005a63] text-white py-3.5 rounded-full text-sm font-bold shadow-md transition-all active:scale-[0.98] mt-2" type="submit">
+                    Terapkan Filter
+                </button>
+            </aside>
+        </form>
 
         <div class="lg:col-span-3">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -115,13 +133,13 @@
             </div>
             <div class="flex justify-center items-center gap-2 mt-16 mb-12">
                 <?php if ($data['halaman_aktif'] > 1 ):?>
-                    <a href="?halaman=<?= $data['halaman_aktif'] - 1 ?>" class="w-8 h-8 rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200 flex items-center justify-center transition-colors">
+                    <a href="?halaman=<?= $data['halaman_aktif'] - 1 ?><?= isset($data['urutan']) ? '&urutan='.$data['urutan'] : ''?>" class="w-8 h-8 rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200 flex items-center justify-center transition-colors">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
                     </a>
                 <?php endif ?>
 
                 <?php for ($i = 1; $i <= $data['total_halaman']; $i++) : ?>
-                    <a href="?halaman=<?= $i ?>" 
+                    <a href="?halaman=<?= $i ?><?= isset($data['urutan']) ? '&urutan='.$data['urutan'] : ''?>" 
                     class="w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs transition-all 
                     <?= ($i == $data['halaman_aktif']) ? 'bg-[#006D77] text-white shadow-md' : 'bg-transparent text-gray-600 hover:bg-gray-100' ?>">
                         <?= $i ?>
@@ -129,7 +147,7 @@
                 <?php endfor; ?>
 
                 <?php if ($data['halaman_aktif'] < $data['total_halaman']) : ?>
-                    <a href="?halaman=<?= $data['halaman_aktif'] + 1 ?>" class="w-8 h-8 rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200 flex items-center justify-center transition-colors">
+                    <a href="?halaman=<?= $data['halaman_aktif'] + 1?><?= isset($data['urutan']) ? '&urutan='.$data['urutan'] : ''?>" class="w-8 h-8 rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200 flex items-center justify-center transition-colors">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                     </a>
                 <?php endif; ?>
@@ -156,3 +174,12 @@
     </div>
 
 </main>
+
+<script>
+    const selectSort = document.querySelector('select');
+    selectSort.addEventListener('change', function() {
+        const url = new URL(window.location.href);
+        url.searchParams.set('urutan', this.value);
+        window.location.href = url.href;
+    });
+</script>
