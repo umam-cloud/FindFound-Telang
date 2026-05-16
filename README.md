@@ -143,7 +143,7 @@ git push origin feat/frontend   # atau feat/backend
 - [x] Autentikasi (Login & Register)
 - [x] Lapor barang hilang
 - [x] Lapor barang ditemukan
-- [ ] Pencarian barang
+- [x] Pencarian barang
 - [x] Detail barang
 - [x] Upload foto barang
 - [ ] Dashboard admin
