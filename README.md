@@ -31,7 +31,7 @@ Dibangun menggunakan **PHP Native dengan pola arsitektur MVC** (tanpa framework)
 ## 🛠️ Teknologi yang Digunakan
 
 - **Backend**: PHP 8.x (Native MVC tanpa framework)
-- **Frontend**: HTML5, CSS3, JavaScript
+- **Frontend**: HTML5, TailWind, JavaScript
 - **Database**: MySQL
 - **Tools**: Laragon, VS Code, GitHub
 - **Design**: Figma
@@ -41,62 +41,26 @@ Dibangun menggunakan **PHP Native dengan pola arsitektur MVC** (tanpa framework)
 ## 📁 Struktur Folder
 
 ```
-FindFound/
-│   README.md
-│
+FindFound-Telang/
 ├───app
-│   │   .htaccess
-│   │   init.php
-│   │
 │   ├───config
-│   │       conn.php
-│   │       Database.php
-│   │
 │   ├───controllers
-│   │       About.php
-│   │       Auth.php
-│   │       Home.php
-│   │
 │   ├───core
-│   │       App.php
-│   │       Controller.php
-│   │       Model.php
-│   │
 │   ├───models
-│   │       User_model.php
-│   │
 │   └───views
-│       ├───about
-│       │       index.php
-│       │
+│       ├───aktivitas
 │       ├───auth
-│       │       login.php
-│       │       register.php
-│       │
-│       ├───barang
-│       │       create.php
-│       │       detail.php
-│       │       index.php
-│       │
 │       ├───home
-│       │       index.php
-│       │
+│       ├───laporan
+│       ├───postingan
+│       ├───profile
 │       └───templates
-│               footer.php
-│               header.php
-│
 └───public
-    │   .htaccess
-    │   index.php
-    │
     ├───css
-    │       style.css
-    │
     ├───img
-    │       index.txt
-    │
+    │   ├───postingan
+    │   └───profile
     └───js
-            script.js
 
 ```
 
@@ -188,4 +152,4 @@ git push origin feat/frontend   # atau feat/backend
 
 ## 📄 Lisensi
 
-Project ini dibuat untuk keperluan tugas kuliah. © 2025 Tim Find & Found Telang.
+Project ini dibuat untuk keperluan tugas kuliah. © 2026 Tim Find & Found Telang.
