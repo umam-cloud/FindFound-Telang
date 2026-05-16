@@ -23,6 +23,8 @@ class Postingan extends Controller{
                 ];
             }
         }
+
+        $search = (isset($_GET['search'])) ? $_GET['search'] : NULL;
         
         $getUrutan = (isset($_GET['urutan'])) ? $_GET['urutan'] : NULL;
         $urutan = (isset($getUrutan) && $getUrutan == 'terlama') ? 'ASC' : 'DESC';
@@ -34,7 +36,7 @@ class Postingan extends Controller{
         [
             'data' => $data['postingan'],
             'jumlahData' => $totalData
-        ] = $post_model->getPostPagination($filters, $offset, $limit, $urutan);
+        ] = $post_model->getPostPagination($filters, $offset, $limit, $urutan, $search);
 
         $totalHalaman = ceil($totalData / $limit);
 
@@ -43,6 +45,7 @@ class Postingan extends Controller{
         $data['total_halaman'] = $totalHalaman;
         $data['total_data'] = $totalData;
         $data['urutan'] = $getUrutan;
+        $data['keyword'] = $search;
         $data['filters'] = $filters;
 
         $this->view('templates/header');

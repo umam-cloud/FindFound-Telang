@@ -11,8 +11,11 @@ class Home extends Controller {
 
     public function beranda(){
         $post_model = $this->model('Post_model');
-        $post = $post_model->getNewPost();
+
+        $search = (isset($_GET['search'])) ? $_GET['search'] : NULL;
         
+        $post = $post_model->getNewPost($search);
+
         $this->view('templates/header');
         $this->view('home/index', $post);
         $this->view('templates/footer');

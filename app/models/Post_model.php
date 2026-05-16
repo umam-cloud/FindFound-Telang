@@ -16,11 +16,23 @@ class Post_model{
     }
 
 
-    public function getNewPost(){
-        $this->db->query('SELECT *
-            FROM postingan
-            ORDER BY postingan.created_at DESC
-            LIMIT 6');
+    public function getNewPost($keyword){
+        $filter = ' WHERE 1=1';
+        if(!is_null($keyword)){
+            $filter .= " AND judul LIKE :keyword";
+        }
+
+        $query ='SELECT *
+                FROM postingan'
+                .$filter.
+                ' ORDER BY postingan.created_at DESC
+                LIMIT 6';
+              
+        $this->db->query($query);
+
+        if(!is_null($keyword)){
+            $this->db->bind('keyword', "%$keyword%");
+        }
 
         return $this->db->resultset();
     }
@@ -109,7 +121,7 @@ class Post_model{
         return $this->db->resultsingel();
     }
 
-    public function getPostPagination($filters ,$offset, $limit, $urutan) {
+    public function getPostPagination($filters ,$offset, $limit, $urutan, $keyword) {
         $filterKondisi = "WHERE 1=1"; 
         if(!empty($filters['kategori'])) {
             $kategoris = "'" . implode("','", $filters['kategori']) . "'";
@@ -125,11 +137,19 @@ class Post_model{
             $filterKondisi .= " AND created_at >= DATE_SUB(NOW(), INTERVAL $hari DAY)";
         }
 
+        if(!is_null($keyword)){
+            $filterKondisi .= " AND judul LIKE :keyword";
+        }
+
         $query = "SELECT COUNT(*) as total FROM postingan ". $filterKondisi;
         $this->db->query($query);
 
         if($filters['status'] !== 'semua') {
             $this->db->bind('status', $filters['status']);
+        }
+
+        if(!is_null($keyword)){
+            $this->db->bind('keyword', "%$keyword%");
         }
         
         $result = $this->db->resultsingel(); 
@@ -140,6 +160,10 @@ class Post_model{
 
         if($filters['status'] !== 'semua') {
             $this->db->bind('status', $filters['status']);
+        }
+
+        if(!is_null($keyword)){
+            $this->db->bind('keyword', "%$keyword%");
         }
         
         $this->db->bind('offset', $offset);

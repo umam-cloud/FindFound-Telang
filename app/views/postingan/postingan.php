@@ -27,7 +27,7 @@
         <span class="absolute inset-y-0 left-6 flex items-center text-gray-400">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
         </span>
-        <input type="text" placeholder="Cari barang yang hilang atau ditemukan..." class="w-full bg-white border border-gray-100 shadow-sm rounded-full py-4 pl-14 pr-6 focus:outline-none focus:ring-2 focus:ring-[#006D77] text-sm text-gray-700 transition-all">
+        <input value="<?= isset($data['keyword']) ? $data['keyword'] : ''?>" type="text" id="search" placeholder="Cari barang yang hilang atau ditemukan..." class="w-full bg-white border border-gray-100 shadow-sm rounded-full py-4 pl-14 pr-6 focus:outline-none focus:ring-2 focus:ring-[#006D77] text-sm text-gray-700 transition-all">
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-4 gap-10">
@@ -133,13 +133,13 @@
             </div>
             <div class="flex justify-center items-center gap-2 mt-16 mb-12">
                 <?php if ($data['halaman_aktif'] > 1 ):?>
-                    <a href="?halaman=<?= $data['halaman_aktif'] - 1 ?><?= isset($data['urutan']) ? '&urutan='.$data['urutan'] : ''?>" class="w-8 h-8 rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200 flex items-center justify-center transition-colors">
+                    <a href="?halaman=<?= $data['halaman_aktif'] - 1 ?><?= isset($data['urutan']) ? '&urutan='.$data['urutan'] : ''?><?= isset($data['keyword']) ? '&search='.$data['keyword'] : ''?>" class="w-8 h-8 rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200 flex items-center justify-center transition-colors">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
                     </a>
                 <?php endif ?>
 
                 <?php for ($i = 1; $i <= $data['total_halaman']; $i++) : ?>
-                    <a href="?halaman=<?= $i ?><?= isset($data['urutan']) ? '&urutan='.$data['urutan'] : ''?>" 
+                    <a href="?halaman=<?= $i ?><?= isset($data['urutan']) ? '&urutan='.$data['urutan'] : ''?><?= isset($data['keyword']) ? '&search='.$data['keyword'] : ''?>" 
                     class="w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs transition-all 
                     <?= ($i == $data['halaman_aktif']) ? 'bg-[#006D77] text-white shadow-md' : 'bg-transparent text-gray-600 hover:bg-gray-100' ?>">
                         <?= $i ?>
@@ -147,7 +147,7 @@
                 <?php endfor; ?>
 
                 <?php if ($data['halaman_aktif'] < $data['total_halaman']) : ?>
-                    <a href="?halaman=<?= $data['halaman_aktif'] + 1?><?= isset($data['urutan']) ? '&urutan='.$data['urutan'] : ''?>" class="w-8 h-8 rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200 flex items-center justify-center transition-colors">
+                    <a href="?halaman=<?= $data['halaman_aktif'] + 1?><?= isset($data['urutan']) ? '&urutan='.$data['urutan'] : ''?><?= isset($data['keyword']) ? '&search='.$data['keyword'] : ''?>" class="w-8 h-8 rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200 flex items-center justify-center transition-colors">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                     </a>
                 <?php endif; ?>
@@ -177,9 +177,20 @@
 
 <script>
     const selectSort = document.querySelector('select');
+    const search = document.getElementById('search');
+    
     selectSort.addEventListener('change', function() {
         const url = new URL(window.location.href);
         url.searchParams.set('urutan', this.value);
         window.location.href = url.href;
+    });
+
+
+    search.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            const url = new URL(window.location.href);
+            url.searchParams.set('search', this.value);
+            window.location.href = url.href;
+        }
     });
 </script>

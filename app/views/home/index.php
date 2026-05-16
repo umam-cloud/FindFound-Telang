@@ -16,7 +16,7 @@
         <span class="absolute inset-y-0 left-5 flex items-center text-gray-400">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
         </span>
-        <input type="text" placeholder="Cari barang yang hilang atau ditemukan..." class="w-full bg-gray-200/80 text-gray-700 rounded-full py-4 pl-14 pr-6 focus:outline-none focus:ring-2 focus:ring-[#006D77] transition-all">
+        <input value="<?= isset($data['keyword']) ? $data['keyword'] : ''?>" type="text" id="search" placeholder="Cari barang yang hilang atau ditemukan..." class="w-full bg-gray-200/80 text-gray-700 rounded-full py-4 pl-14 pr-6 focus:outline-none focus:ring-2 focus:ring-[#006D77] transition-all">
     </div>
 
     <div class="flex gap-3 overflow-x-auto no-scrollbar mb-12 pb-2">
@@ -112,3 +112,15 @@
     </div>
 
 </main>
+
+<script>
+    const search = document.getElementById('search');
+     
+    search.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            const url = new URL(window.location.href);
+            url.searchParams.set('search', this.value);
+            window.location.href = url.href;
+        }
+    });
+</script>
