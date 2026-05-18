@@ -28,8 +28,7 @@
     </div>
 
     <div class="flex gap-8 border-b border-gray-200 mb-8">
-        <button id="tab-postingan" onclick="switchTab('postingan')" class="tab-btn pb-4 text-xs font-bold text-[#006D77] border-b-2 border-[#006D77] tracking-wide transition-colors">Postingan Saya</button>
-        <button id="tab-dilaporkan" onclick="switchTab('dilaporkan')" class="tab-btn pb-4 text-xs font-bold text-gray-400 hover:text-gray-600 tracking-wide transition-colors border-b-2 border-transparent">Barang Dilaporkan</button>
+        <button id="tab-postingan" class="tab-btn pb-4 text-xs font-bold text-[#006D77] border-b-2 border-[#006D77] tracking-wide transition-colors">Postingan Saya</button>
     </div>
 
     <div class="flex flex-col gap-4">
@@ -74,12 +73,6 @@
 
     </div>
 
-    <div class="mt-12 flex justify-center">
-        <button class="bg-[#006D77] hover:bg-[#005a63] text-white px-10 py-3.5 rounded-full text-sm font-bold shadow-md shadow-teal-900/20 transition-all active:scale-[0.98]">
-            Muat Lebih Banyak
-        </button>
-    </div>
-
 </main>
 
 <script>
@@ -107,18 +100,18 @@ function confirmDelete(id) {
     }
 }
 
-function switchTab(tabName) {
-    const tabs = document.querySelectorAll('.tab-btn');
+// function switchTab(tabName) {
+//     const tabs = document.querySelectorAll('.tab-btn');
     
-    tabs.forEach(tab => {
-        tab.classList.remove('text-[#006D77]', 'border-[#006D77]');
-        tab.classList.add('text-gray-400', 'border-transparent');
-    });
+//     tabs.forEach(tab => {
+//         tab.classList.remove('text-[#006D77]', 'border-[#006D77]');
+//         tab.classList.add('text-gray-400', 'border-transparent');
+//     });
 
-    const activeTab = document.getElementById(`tab-${tabName}`);
-    activeTab.classList.remove('text-gray-400', 'border-transparent');
-    activeTab.classList.add('text-[#006D77]', 'border-[#006D77]');
+//     const activeTab = document.getElementById(`tab-${tabName}`);
+//     activeTab.classList.remove('text-gray-400', 'border-transparent');
+//     activeTab.classList.add('text-[#006D77]', 'border-[#006D77]');
 
-    console.log("Pindah ke tab: " + tabName);
-}
+//     console.log("Pindah ke tab: " + tabName);
+// }
 </script>

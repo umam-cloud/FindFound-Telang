@@ -12,20 +12,11 @@
         </h1>
     </div>
 
-    <div class="relative max-w-2xl mb-8">
+    <div class="relative max-w-2xl mb-10">
         <span class="absolute inset-y-0 left-5 flex items-center text-gray-400">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
         </span>
         <input value="<?= isset($data['keyword']) ? $data['keyword'] : ''?>" type="text" id="search" placeholder="Cari barang yang hilang atau ditemukan..." class="w-full bg-gray-200/80 text-gray-700 rounded-full py-4 pl-14 pr-6 focus:outline-none focus:ring-2 focus:ring-[#006D77] transition-all">
-    </div>
-
-    <div class="flex gap-3 overflow-x-auto no-scrollbar mb-12 pb-2">
-        <button class="bg-[#006D77] text-white px-5 py-2 rounded-full text-xs font-bold whitespace-nowrap">Semua</button>
-        <button class="bg-gray-200 text-gray-600 hover:bg-gray-300 px-5 py-2 rounded-full text-xs font-bold whitespace-nowrap transition">Hilang</button>
-        <button class="bg-gray-200 text-gray-600 hover:bg-gray-300 px-5 py-2 rounded-full text-xs font-bold whitespace-nowrap transition">Ditemukan</button>
-        <button class="bg-gray-200 text-gray-600 hover:bg-gray-300 px-5 py-2 rounded-full text-xs font-bold whitespace-nowrap transition">Elektronik</button>
-        <button class="bg-gray-200 text-gray-600 hover:bg-gray-300 px-5 py-2 rounded-full text-xs font-bold whitespace-nowrap transition">Hewan Peliharaan</button>
-        <button class="bg-gray-200 text-gray-600 hover:bg-gray-300 px-5 py-2 rounded-full text-xs font-bold whitespace-nowrap transition">Pribadi</button>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -40,12 +31,13 @@
                 $btnClass = ($jenis == 'hilang') 
                 ? 'bg-green-400 text-white opacity-80 hover:bg-green-600' 
                 : 'bg-[#006D77] text-white hover:bg-[#005a63]';
-
+                $btnHref = 'href="'.BASEURL.'/postingan/detailPostingan/'.$post['id'].'"';
                 $badgeClass = ($jenis == 'hilang') ? 'bg-red-100 text-red-800' : 'bg-[#D1E9E6] text-[#006D77]';
             }else{
                 $btnText = 'Sudah Dikembalikan';
                 $btnClass= 'bg-gray-200 text-gray-600 hover:bg-gray-300 cursor-not-allowed';
                 $badgeClass = ($jenis == 'hilang') ? 'bg-red-100 text-red-800' : 'bg-[#D1E9E6] text-[#006D77]';
+                $btnHref = '';
             }
             $posisi = $index % 4;
         ?>
@@ -61,7 +53,7 @@
                         <h3 class="text-2xl font-bold text-gray-900 mb-2"><?=$post['judul']?></h3>
                         <p class="text-xs text-gray-500 flex items-center gap-1 mb-4"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg><?=$post['lokasi_spesifik']?></p>
                         <p class="text-sm text-gray-600 mb-8 leading-relaxed"><?=$post['deskripsi']?></p>
-                        <button class="<?= $btnClass ?> px-6 py-3 rounded-full text-sm font-bold w-max transition"><?= $btnText ?></button>
+                        <a <?=$btnHref?> class="<?= $btnClass ?> px-6 py-3 rounded-full text-sm font-bold w-max transition"><?= $btnText ?></a>
                     </div>
                 </div>
 
@@ -81,7 +73,7 @@
                         <?=$post['lokasi_spesifik']?>
                     </p>
                     <p class="text-sm text-gray-600 mb-8 leading-relaxed"><?=$post['deskripsi']?></p>
-                    <button class="<?= $btnClass ?> px-6 py-3 rounded-full text-sm font-bold w-max transition"><?= $btnText ?></button>
+                    <a <?=$btnHref?> class="<?= $btnClass ?> px-6 py-3 rounded-full text-sm font-bold w-max transition"><?= $btnText ?></a>
                 </div>
                 <img src="<?=BASEURL?>/img/postingan/<?=$post['file_path']?>" alt="Gambar Barang" class="w-full md:w-1/2 h-64 md:h-auto object-cover">
             </div>
@@ -97,7 +89,7 @@
                         </div>
                         <h3 class="text-xl font-bold text-gray-900 mb-3"><?=$post['judul']?></h3>
                         <p class="text-sm text-gray-600 mb-8 flex-grow"><?=$post['deskripsi']?></p>
-                        <button class="<?= $btnClass ?> px-6 py-3 rounded-full text-sm font-bold w-full transition"><?= $btnText ?></button>
+                        <a <?=$btnHref?> class="<?= $btnClass ?> px-6 py-3 rounded-full text-sm font-bold w-full transition text-center"><?= $btnText ?></a>
                     </div>
                 </div>
             <?php endif; ?>
