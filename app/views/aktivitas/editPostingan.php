@@ -8,7 +8,27 @@
         </p>
     </div>
 
-    <form action="<?=BASEURL?>/aktivitas/updatePostingan/<?=$data['id']?>/<?=$data['file_path']?>" method="POST" enctype="multipart/form-data">
+    <?php if (isset($_SESSION['err'])):?>
+        <div class="flex items-start gap-3 p-3 rounded-lg bg-red-50 border border-red-200 mb-8">
+            <svg class="w-5 h-5 text-red-600 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <p class="text-sm text-red-700"><?=$_SESSION['err']?></p>
+        </div>
+        <?php unset($_SESSION['err'])?>    
+    <?php endif?>
+
+    <?php 
+        $old = $_SESSION['old_input'] ?? null; 
+        unset($_SESSION['old_input']);
+        
+        $val_judul = $old ? ($old['judul'] ?? '') : $data['judul'];
+        $val_tanggal = $old ? ($old['tanggal'] ?? '') : $data['tanggal_kejadian'];
+        $val_kategori = $old ? ($old['kategori'] ?? '') : $data['kategori_id'];
+        $val_lokasi = $old ? ($old['lokasi'] ?? '') : $data['lokasi_spesifik'];
+        $val_deskripsi = $old ? ($old['deskripsi'] ?? '') : $data['deskripsi'];
+    ?>
+    <form action="<?=BASEURL?>/aktivitas/updatePostingan/<?=$data['id']?>/<?=$data['file_path']?>/" method="POST" enctype="multipart/form-data">
 
         <div class="relative w-full h-56 md:h-72 rounded-[2rem] overflow-hidden mb-10 group cursor-pointer border border-gray-100 shadow-sm bg-gray-100">
             <img id="preview_foto" src="<?=BASEURL?>/img/postingan/<?=$data['file_path']?>" alt="Preview Foto" class="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-multiply blur-sm group-hover:scale-105 transition-transform duration-700">
@@ -27,13 +47,13 @@
             
             <div>
                 <label class="block text-[10px] font-bold text-gray-800 mb-3 tracking-widest uppercase">Judul Laporan</label>
-                <input type="text" name="judul" value="<?=$data['judul']?>" placeholder="Misal: Kunci Motor Honda Hitam" 
+                <input type="text" name="judul" value="<?=htmlspecialchars($val_judul)?>" placeholder="Misal: Kunci Motor Honda Hitam" required
                        class="w-full px-5 py-4 bg-gray-100 border-none focus:ring-2 focus:ring-[#006D77] rounded-xl text-sm outline-none text-gray-700 font-medium transition-all placeholder-gray-400">
             </div>
 
             <div>
                 <label class="block text-[10px] font-bold text-gray-800 mb-3 tracking-widest uppercase">Tanggal Kejadian</label>
-                <input type="date" name="tanggal" value="<?=$data['tanggal_kejadian']?>"
+                <input type="date" name="tanggal" value="<?=htmlspecialchars($val_tanggal)?>" required
                        class="w-full px-5 py-4 bg-gray-100 border-none focus:ring-2 focus:ring-[#006D77] rounded-xl text-sm outline-none text-gray-700 font-medium transition-all cursor-pointer">
             </div>
 
@@ -43,14 +63,14 @@
                     <span class="absolute inset-y-0 left-4 flex items-center text-gray-400 pointer-events-none">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path></svg>
                     </span>
-                    <select name="kategori" 
+                    <select name="kategori" required
                             class="w-full pl-11 pr-10 py-4 bg-gray-100 border-none focus:ring-2 focus:ring-[#006D77] rounded-xl text-sm outline-none text-gray-700 font-medium transition-all appearance-none cursor-pointer">
-                        <option value="1" <?= ($data['kategori_id'] == 1) ? 'selected' : '' ?>>Elektronik</option>
-                        <option value="2" <?= ($data['kategori_id'] == 2) ? 'selected' : '' ?>>Dokumen & Dompet</option>
-                        <option value="3" <?= ($data['kategori_id'] == 3) ? 'selected' : '' ?>>Aksesoris & Perhiasan</option>
-                        <option value="4" <?= ($data['kategori_id'] == 4) ? 'selected' : '' ?>>Pakaian</option>
-                        <option value="5" <?= ($data['kategori_id'] == 5) ? 'selected' : '' ?>>Hewan Peliharaan</option>
-                        <option value="6" <?= ($data['kategori_id'] == 6) ? 'selected' : '' ?>>Lainnya</option>
+                        <option value="1" <?= ($val_kategori == 1) ? 'selected' : '' ?>>Elektronik</option>
+                        <option value="2" <?= ($val_kategori == 2) ? 'selected' : '' ?>>Dokumen & Dompet</option>
+                        <option value="3" <?= ($val_kategori == 3) ? 'selected' : '' ?>>Aksesoris & Perhiasan</option>
+                        <option value="4" <?= ($val_kategori == 4) ? 'selected' : '' ?>>Pakaian</option>
+                        <option value="5" <?= ($val_kategori == 5) ? 'selected' : '' ?>>Hewan Peliharaan</option>
+                        <option value="6" <?= ($val_kategori == 6) ? 'selected' : '' ?>>Lainnya</option>
                     </select>
                     <div class="absolute inset-y-0 right-4 flex items-center pointer-events-none text-gray-400">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
@@ -64,15 +84,15 @@
                     <span class="absolute inset-y-0 left-4 flex items-center text-gray-400">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                     </span>
-                    <input type="text" name="lokasi" value="<?=$data['lokasi_spesifik']?>" placeholder="Contoh: Depan Kantin GKB" 
+                    <input type="text" name="lokasi" value="<?=htmlspecialchars($val_lokasi)?>" placeholder="Contoh: Depan Kantin GKB" required
                            class="w-full pl-11 pr-5 py-4 bg-gray-100 border-none focus:ring-2 focus:ring-[#006D77] rounded-xl text-sm outline-none text-gray-700 font-medium transition-all">
                 </div>
             </div>
 
             <div class="md:col-span-2">
                 <label class="block text-[10px] font-bold text-gray-800 mb-3 tracking-widest uppercase">Deskripsi Barang</label>
-                <textarea name="deskripsi" rows="5" placeholder="Detail ciri-ciri barang..." 
-                          class="w-full px-5 py-4 bg-gray-100 border-none focus:ring-2 focus:ring-[#006D77] rounded-xl text-sm outline-none text-gray-700 font-medium leading-relaxed resize-none transition-all"><?= $data['deskripsi'] ?></textarea>
+                <textarea name="deskripsi" rows="5" placeholder="Detail ciri-ciri barang..." required
+                          class="w-full px-5 py-4 bg-gray-100 border-none focus:ring-2 focus:ring-[#006D77] rounded-xl text-sm outline-none text-gray-700 font-medium leading-relaxed resize-none transition-all"><?= htmlspecialchars($val_deskripsi) ?></textarea>
             </div>
         </div>
 

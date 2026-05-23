@@ -119,7 +119,7 @@ class Auth extends Controller{
         session_unset();
         session_destroy();
 
-        header('location: ' . BASEURL . '/auth');
+        header('location: ' . BASEURL . '/');
         exit;
     }
 

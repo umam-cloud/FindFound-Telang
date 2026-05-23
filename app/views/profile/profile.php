@@ -69,7 +69,7 @@
                         <p class="text-xs text-gray-500 mb-6 flex-grow leading-relaxed"><?=$post['deskripsi']?></p>
                         <div class="flex justify-between items-center pt-4 border-t border-gray-50">
                             <span class="text-[10px] font-bold text-gray-400 flex items-center gap-1.5"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path></svg><?=$post['lokasi_spesifik']?></span>
-                            <a href="<?=BASEURL?>/postingan/detailPostingan/<?=$post['id']?>" class="text-[11px] font-bold text-[#006D77] hover:text-teal-900 flex items-center gap-1 transition-colors">Kelola <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></a>
+                            <a href="<?=BASEURL?>/postingan/detailPostingan/<?=$post['kode_postingan']?>" class="text-[11px] font-bold text-[#006D77] hover:text-teal-900 flex items-center gap-1 transition-colors">Kelola <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></a>
                         </div>
                     </div>
                 </div>

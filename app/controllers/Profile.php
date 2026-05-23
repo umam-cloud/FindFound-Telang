@@ -2,6 +2,10 @@
 
 class Profile extends Controller{
     public function index(){
+        if (!isset($_SESSION['id_user'])) {
+            header('location: '.BASEURL.'/auth');
+            exit; 
+        }   
         $user_model = $this->model('user_model');
         $user = $user_model->getUserById($_SESSION['id_user']); 
         $post_model = $this->model('post_model');
@@ -15,6 +19,11 @@ class Profile extends Controller{
     }
     
     public function editProfile(){
+         if (!isset($_SESSION['id_user'])) {
+            header('location: '.BASEURL.'/auth');
+            exit; 
+        }  
+
         $user_model = $this->model('user_model');
         $user = $user_model->getUserById($_SESSION['id_user']); 
 
@@ -24,7 +33,12 @@ class Profile extends Controller{
     }
 
     public function updateProfile(){
-         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+         if (!isset($_SESSION['id_user'])) {
+            header('location: '.BASEURL.'/auth');
+            exit; 
+        }  
+
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             $this->view('profile/editProfile');
             return;
         }

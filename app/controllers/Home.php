@@ -2,11 +2,7 @@
 
 class Home extends Controller {
     public function index() {
-        if (isset($_SESSION['id_user'])) {
-            $this->beranda();
-            exit; 
-        }
-        $this->view('auth/login');
+        $this->beranda();
     }
 
     public function beranda(){
@@ -14,10 +10,12 @@ class Home extends Controller {
 
         $search = (isset($_GET['search'])) ? $_GET['search'] : NULL;
         
-        $post = $post_model->getNewPost($search);
+        $posts = $post_model->getNewPost($search);
+        $data['keyword'] = $search;
+        $data['posts'] = $posts;
 
         $this->view('templates/header');
-        $this->view('home/index', $post);
+        $this->view('home/index', $data);
         $this->view('templates/footer');
     }
 }

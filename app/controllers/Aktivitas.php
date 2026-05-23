@@ -2,6 +2,11 @@
 
 class Aktivitas extends Controller{
     public function index(){
+        if (!isset($_SESSION['id_user'])) {
+            header('location: '.BASEURL.'/auth');
+            exit; 
+        }  
+
         $post_model = $this->model('post_model');
         $data = $post_model->getPostByIdUser($_SESSION['id_user']);
 
@@ -17,8 +22,13 @@ class Aktivitas extends Controller{
     }
 
     public function editPostingan($id){
+         if (!isset($_SESSION['id_user'])) {
+            header('location: '.BASEURL.'/auth');
+            exit; 
+        }  
+
         $post_model = $this->model('post_model');
-        $data = $post_model->getPostByIdPost($id);
+        $data = $post_model->getPostByKodePost($id);
 
         $this->view('templates/header');
         $this->view('aktivitas/editPostingan', $data);
@@ -26,6 +36,11 @@ class Aktivitas extends Controller{
     }
 
     public function delete($id){
+        if (!isset($_SESSION['id_user'])) {
+            header('location: '.BASEURL.'/auth');
+            exit; 
+        }  
+
         $post_model = $this->model('post_model');
         
         $post = $post_model->getPostByIdPost($id);
@@ -49,6 +64,11 @@ class Aktivitas extends Controller{
     }
 
     public function updatePostingan($id, $gambar){
+        if (!isset($_SESSION['id_user'])) {
+            header('location: '.BASEURL.'/auth');
+            exit; 
+        }  
+
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             $this->view('aktivitas/');
             return;
@@ -57,6 +77,41 @@ class Aktivitas extends Controller{
         $data = $_POST;
         $data['id_postingan'] = $id;
         $data['foto_lama'] = $gambar;
+
+        if(empty(trim($_POST['judul'] ?? ''))){
+            $_SESSION['err'] = 'Form judul Wajib di isi!'; 
+            $_SESSION['old_input'] = $_POST;
+            header('location: '.BASEURL.'/aktivitas/editPostingan/'.$id);
+            exit;
+        }
+
+        if(empty(trim($_POST['tanggal'] ?? ''))){
+            $_SESSION['err'] = 'Form tanggal kejadian Wajib di isi!'; 
+            $_SESSION['old_input'] = $_POST;
+            header('location: '.BASEURL.'/aktivitas/editPostingan/'.$id);
+            exit;
+        }
+
+        if(empty(trim($_POST['kategori'] ?? ''))){
+            $_SESSION['err'] = 'Form kategori Wajib di isi!'; 
+            $_SESSION['old_input'] = $_POST;
+            header('location: '.BASEURL.'/aktivitas/editPostingan/'.$id);
+            exit;
+        }
+
+        if(empty(trim($_POST['lokasi'] ?? ''))){
+            $_SESSION['err'] = 'Form lokasi Wajib di isi!'; 
+            $_SESSION['old_input'] = $_POST;
+            header('location: '.BASEURL.'/aktivitas/editPostingan/'.$id);
+            exit;
+        }
+        
+        if(empty(trim($_POST['deskripsi'] ?? ''))){
+            $_SESSION['err'] = 'Form deskripsi Wajib di isi!'; 
+            $_SESSION['old_input'] = $_POST;
+            header('location: '.BASEURL.'/aktivitas/editPostingan/'.$id);
+            exit;
+        }
 
         if (isset($_FILES['foto_postingan']) && $_FILES['foto_postingan']['error'] === 0) {
             
@@ -67,7 +122,7 @@ class Aktivitas extends Controller{
             $ekstensiValid = ['jpg', 'jpeg', 'png'];
             $ekstensiGambar = strtolower(pathinfo($namaFile, PATHINFO_EXTENSION));
 
-            if (in_array($ekstensiGambar, $ekstensiValid) && $ukuranFile < 1000000) {
+            if (in_array($ekstensiGambar, $ekstensiValid) && $ukuranFile < 10000000) {
                 $namaFileBaru = uniqid() . '.' . $ekstensiGambar;
                 $tujuan = '../public/img/postingan/' . $namaFileBaru;
                 
@@ -80,9 +135,17 @@ class Aktivitas extends Controller{
                         }
                     }
                     $data['foto_postingan'] = $namaFileBaru;
+                } else {
+                    $_SESSION['err'] = 'Gagal memindahkan file gambar.';
+                    $_SESSION['old_input'] = $_POST;
+                    header('location: '.BASEURL.'/aktivitas/editPostingan/'.$id);
+                    exit;
                 }
             } else {
-                $_SESSION['err'] = 'Ukuran File Gambar Lebih dari 10MB';
+                $_SESSION['err'] = 'Ukuran File Gambar Lebih dari 10MB atau ekstensi salah';
+                $_SESSION['old_input'] = $_POST;
+                header('location: '.BASEURL.'/aktivitas/editPostingan/'.$id);
+                exit;
             }
         }else{
             $data['foto_postingan'] = $data['foto_lama'];
@@ -91,6 +154,7 @@ class Aktivitas extends Controller{
         $post_model = $this->model('post_model');
         $post_model->updatePost($data);
 
+        unset($_SESSION['old_input']);
         header('location: '.BASEURL.'/aktivitas/');
     }
 }

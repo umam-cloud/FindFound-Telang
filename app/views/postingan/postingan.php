@@ -111,7 +111,7 @@
                     }else{
                         $badgeClass = 'bg-[#D1E9E6] text-[#006D77]';
                     }?>
-                    <a href="<?=BASEURL?>/postingan/detailPostingan/<?=$post['id']?>" class="bg-white rounded-[1.5rem] overflow-hidden shadow-sm border border-gray-100 flex flex-col group hover:shadow-md transition-all cursor-grab" >
+                    <a href="<?=BASEURL?>/postingan/detailPostingan/<?=$post['kode_postingan']?>" class="bg-white rounded-[1.5rem] overflow-hidden shadow-sm border border-gray-100 flex flex-col group hover:shadow-md transition-all cursor-grab" >
                         <div class="relative h-44 bg-gray-200 overflow-hidden">
                             <span class="<?=$badgeClass?> absolute top-4 left-4 z-10 text-[9px] font-bold px-2.5 py-1 rounded-sm uppercase tracking-widest shadow-sm"><?=$post['jenis_laporan']?></span>
                             <img src="<?=BASEURL?>/img/postingan/<?=$post['file_path']?>" alt="Dompet" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">

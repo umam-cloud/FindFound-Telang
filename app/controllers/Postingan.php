@@ -53,9 +53,9 @@ class Postingan extends Controller{
         $this->view('templates/footer');
     }
 
-    public function detailPostingan($id){
+    public function detailPostingan($kode){
         $post_model = $this->model('post_model');
-        $data = $post_model->getPostByIdPost($id);
+        $data = $post_model->getPostByKodePost($kode);
         
 
         $this->view('templates/header');
@@ -63,10 +63,10 @@ class Postingan extends Controller{
         $this->view('templates/footer');
     }
 
-    public function updateStatusPostingan($id){
+    public function updateStatusPostingan($kode){
         $post_model = $this->model('post_model');
-        $post_model->updateStatus($id);
-        header('location: '.BASEURL.'/postingan/detailPostingan/'.$id);
+        $post_model->updateStatus($kode);
+        header('location: '.BASEURL.'/postingan/detailPostingan/'.$kode);
     }
 
 }

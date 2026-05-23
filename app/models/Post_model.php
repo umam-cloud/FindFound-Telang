@@ -96,6 +96,17 @@ class Post_model{
         return $this->db->rowcount();
     }
 
+    public function getPostByJenis($jenis){
+        $this->db->query('SELECT *
+        FROM postingan
+        WHERE jenis_laporan = :jenis');
+
+        $this->db->bind('jenis', $jenis);
+
+        $this->db->resultset();
+        return $this->db->rowcount();
+    }
+
     public function getPostByIdUser($id){
         $this->db->query('SELECT postingan.*
         FROM postingan
@@ -107,16 +118,16 @@ class Post_model{
         return $this->db->resultset();
     }
 
-    public function getPostByIdPost($id){
+    public function getPostByKodePost($kode){
         $this->db->query('SELECT postingan.*, kategori.nama_kategori, users.whatsapp
         FROM postingan 
         INNER JOIN kategori
         ON postingan.kategori_id = kategori.id
         INNER JOIN users
         ON postingan.user_id = users.id
-        WHERE postingan.id = :id');
+        WHERE postingan.kode_postingan = :kode');
 
-        $this->db->bind('id', $id);
+        $this->db->bind('kode', $kode);
 
         return $this->db->resultsingel();
     }
@@ -177,10 +188,10 @@ class Post_model{
             ];
     }
 
-    public function updateStatus($id){
-        $query = "UPDATE postingan SET status = 'selesai' WHERE id = :id";
+    public function updateStatus($kode){
+        $query = "UPDATE postingan SET status = 'selesai' WHERE kode_postingan = :kode";
         $this->db->query($query);
-        $this->db->bind('id', $id);
+        $this->db->bind('kode', $kode);
         $this->db->execute();
     }
 

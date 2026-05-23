@@ -57,4 +57,10 @@ class User_model{
         $this->db->bind('id', $id);
         return $this->db->resultsingel();
     }
+
+    public function totalUser(){
+        $this->db->query('SELECT * FROM users ');
+        $this->db->execute();
+        return $this->db->rowcount();
+    }
 }

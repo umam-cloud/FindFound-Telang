@@ -1,6 +1,6 @@
 <main class="max-w-4xl mx-auto px-6 py-10 md:py-14">
  
-    <div class="mb-12 max-w-2xl">
+    <div class="mb-8 max-w-2xl">
         <p class="text-[10px] font-bold tracking-[0.2em] text-[#006D77] uppercase mb-4">Formulir Pelaporan</p>
         <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight mb-4 leading-tight">Bagikan Informasi<br>Untuk Komunitas.</h1>
         <p class="text-sm text-gray-500 leading-relaxed font-medium">
@@ -8,12 +8,33 @@
         </p>
     </div>
 
+     <?php if (isset($_SESSION['err'])):?>
+        <div class="flex items-start gap-3 p-3 rounded-lg bg-red-50 border border-red-200 mb-8">
+            <svg class="w-5 h-5 text-red-600 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <p class="text-sm text-red-700"><?=$_SESSION['err']?></p>
+        </div>
+        <?php unset($_SESSION['err'])?>    
+    <?php endif?>
+
+
+    <?php 
+        $old = $_SESSION['old_input'] ?? []; 
+        unset($_SESSION['old_input']);
+        $old_jenis = $old['jenis_laporan'] ?? 'hilang';
+        $old_judul = $old['judul'] ?? '';
+        $old_tanggal = $old['tanggal'] ?? '';
+        $old_kategori = $old['kategori'] ?? '';
+        $old_lokasi = $old['lokasi'] ?? '';
+        $old_deskripsi = $old['deskripsi'] ?? '';
+    ?>
     <form action="<?=BASEURL?>/laporan/addLaporan" method="POST" enctype="multipart/form-data">
         
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
             
             <label class="cursor-pointer relative group">
-                <input type="radio" name="jenis_laporan" value="hilang" class="peer sr-only" checked>
+                <input type="radio" name="jenis_laporan" value="hilang" class="peer sr-only" <?= $old_jenis === 'hilang' ? 'checked' : '' ?>>
                 <div class="p-6 md:p-8 rounded-2xl border-2 border-gray-100 bg-gray-50 transition-all hover:bg-gray-100 peer-checked:border-[#006D77] peer-checked:bg-white peer-checked:shadow-sm">
                     <div class="mb-4 text-gray-400 peer-checked:text-[#006D77]">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
@@ -24,7 +45,7 @@
             </label>
 
             <label class="cursor-pointer relative group">
-                <input type="radio" name="jenis_laporan" value="temuan" class="peer sr-only">
+                <input type="radio" name="jenis_laporan" value="temuan" class="peer sr-only" <?= $old_jenis === 'temuan' ? 'checked' : '' ?>>
                 <div class="p-6 md:p-8 rounded-2xl border-2 border-gray-100 bg-gray-50 transition-all hover:bg-gray-100 peer-checked:border-[#006D77] peer-checked:bg-white peer-checked:shadow-sm">
                     <div class="mb-4 text-gray-400 group-hover:text-gray-500 transition-colors">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
@@ -45,21 +66,21 @@
                 <h3 class="font-bold text-gray-900 mb-2">Bukti Visual</h3>
                 <p class="text-[11px] text-gray-600 font-medium leading-relaxed max-w-xs" id="instruction">Unggah foto barang yang jelas. Maksimal 10MB<br>(JPG, PNG).</p>
             </div>
-            <input type="file" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" id="input_foto" name="foto_postingan">
+            <input type="file" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" id="input_foto" name="foto_postingan" required>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-8 mb-8">
             
             <div>
                 <label class="block text-[10px] font-bold text-gray-800 mb-3 tracking-widest">Judul Laporan</label>
-                <input type="text" name="judul" placeholder="Misal: Kunci Motor Honda Hitam" 
+                <input type="text" name="judul" placeholder="Misal: Kunci Motor Honda Hitam" required value="<?= htmlspecialchars($old_judul) ?>"
                        class="w-full px-5 py-4 bg-gray-100 border-none focus:ring-2 focus:ring-[#006D77] rounded-xl text-sm outline-none text-gray-700 font-medium transition-all placeholder-gray-400">
             </div>
 
             <div>
                 <label class="block text-[10px] font-bold text-gray-800 mb-3 tracking-widest">Tanggal Kejadian</label>
                 <div class="relative">
-                    <input type="date" name="tanggal" 
+                    <input type="date" name="tanggal" required value="<?= htmlspecialchars($old_tanggal) ?>"
                            class="w-full px-5 py-4 bg-gray-100 border-none focus:ring-2 focus:ring-[#006D77] rounded-xl text-sm outline-none text-gray-700 font-medium transition-all cursor-pointer appearance-none">
                 </div>
             </div>
@@ -72,15 +93,15 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
                         </svg>
                     </span>
-                    <select name="kategori" 
+                    <select name="kategori" required
                             class="w-full pl-11 pr-10 py-4 bg-gray-100 border-none focus:ring-2 focus:ring-[#006D77] rounded-xl text-sm outline-none text-gray-700 font-medium transition-all appearance-none cursor-pointer">
-                        <option value="" disabled selected>Pilih kategori yang paling sesuai...</option>
-                        <option value="1">Elektronik</option>
-                        <option value="2">Dokumen & Dompet</option>
-                        <option value="3">Aksesoris & Perhiasan</option>
-                        <option value="4">Pakaian</option>
-                        <option value="5">Hewan Peliharaan</option>
-                        <option value="6">Lainnya</option>
+                        <option value="" disabled <?= empty($old_kategori) ? 'selected' : '' ?>>Pilih kategori yang paling sesuai...</option>
+                        <option value="1" <?= $old_kategori == '1' ? 'selected' : '' ?>>Elektronik</option>
+                        <option value="2" <?= $old_kategori == '2' ? 'selected' : '' ?>>Dokumen & Dompet</option>
+                        <option value="3" <?= $old_kategori == '3' ? 'selected' : '' ?>>Aksesoris & Perhiasan</option>
+                        <option value="4" <?= $old_kategori == '4' ? 'selected' : '' ?>>Pakaian</option>
+                        <option value="5" <?= $old_kategori == '5' ? 'selected' : '' ?>>Hewan Peliharaan</option>
+                        <option value="6" <?= $old_kategori == '6' ? 'selected' : '' ?>>Lainnya</option>
                     </select>
                     <div class="absolute inset-y-0 right-4 flex items-center pointer-events-none text-gray-400">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -96,15 +117,15 @@
                     <span class="absolute inset-y-0 left-4 flex items-center text-gray-400">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                     </span>
-                    <input type="text" name="lokasi" placeholder="Sebutkan area spesifik (Contoh: Taman Depan, Lorong A3)" 
+                    <input type="text" name="lokasi" placeholder="Sebutkan area spesifik (Contoh: Taman Depan, Lorong A3)" required value="<?= htmlspecialchars($old_lokasi) ?>"
                            class="w-full pl-11 pr-5 py-4 bg-gray-100 border-none focus:ring-2 focus:ring-[#006D77] rounded-xl text-sm outline-none text-gray-700 font-medium transition-all placeholder-gray-400">
                 </div>
             </div>
 
             <div class="md:col-span-2">
                 <label class="block text-[10px] font-bold text-gray-800 mb-3 tracking-widest">Deskripsi Barang</label>
-                <textarea name="deskripsi" rows="5" placeholder="Berikan ciri-ciri khusus barang tersebut untuk membantu verifikasi..." 
-                          class="w-full px-5 py-4 bg-gray-100 border-none focus:ring-2 focus:ring-[#006D77] rounded-xl text-sm outline-none text-gray-700 font-medium leading-relaxed resize-none transition-all placeholder-gray-400"></textarea>
+                <textarea name="deskripsi" rows="5" placeholder="Berikan ciri-ciri khusus barang tersebut untuk membantu verifikasi..." required
+                          class="w-full px-5 py-4 bg-gray-100 border-none focus:ring-2 focus:ring-[#006D77] rounded-xl text-sm outline-none text-gray-700 font-medium leading-relaxed resize-none transition-all placeholder-gray-400"><?= htmlspecialchars($old_deskripsi) ?></textarea>
             </div>
         </div>
 

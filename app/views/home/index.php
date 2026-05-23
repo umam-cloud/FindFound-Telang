@@ -21,7 +21,7 @@
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         
-       <?php foreach($data as $index => $post):
+       <?php foreach($data['posts'] as $index => $post):
             $tanggal = isset($post['created_at']) ? date('d - m - Y', strtotime($post['created_at'])) : 'Tanggal tidak diketahui';
             $status = $post['status'];
             $jenis = $post['jenis_laporan'];
@@ -31,7 +31,7 @@
                 $btnClass = ($jenis == 'hilang') 
                 ? 'bg-green-400 text-white opacity-80 hover:bg-green-600' 
                 : 'bg-[#006D77] text-white hover:bg-[#005a63]';
-                $btnHref = 'href="'.BASEURL.'/postingan/detailPostingan/'.$post['id'].'"';
+                $btnHref = 'href="'.BASEURL.'/postingan/detailPostingan/'.$post['kode_postingan'].'"';
                 $badgeClass = ($jenis == 'hilang') ? 'bg-red-100 text-red-800' : 'bg-[#D1E9E6] text-[#006D77]';
             }else{
                 $btnText = 'Sudah Dikembalikan';
