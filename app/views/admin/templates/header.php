@@ -22,19 +22,11 @@
             <a href="<?=BASEURL?>/admin/" class="text-xl font-bold tracking-[0.2em] text-[#006D77]">ADMIN PANEL</a>
         </div>
         
-        <div class="flex-1 py-6 px-4 flex flex-col gap-2">
-            <a href="<?=BASEURL?>/admin/" class="px-4 py-3 bg-[#006D77] text-white rounded-xl font-semibold text-sm transition-all shadow-sm">
-                Dashboard
-            </a>
-            <a href="<?=BASEURL?>/admin/pengguna" class="px-4 py-3 text-gray-500 hover:bg-gray-50 hover:text-gray-900 rounded-xl font-semibold text-sm transition-colors">
-                Kelola Pengguna
-            </a>
-            <a href="<?=BASEURL?>/admin/postingan" class="px-4 py-3 text-gray-500 hover:bg-gray-50 hover:text-gray-900 rounded-xl font-semibold text-sm transition-colors">
-                Kelola Postingan
-            </a>
-            <a href="<?=BASEURL?>/admin/laporan" class="px-4 py-3 text-gray-500 hover:bg-gray-50 hover:text-gray-900 rounded-xl font-semibold text-sm transition-colors">
-                Laporan & Aduan
-            </a>
+        <div class="flex flex-col gap-2 px-4">
+            <a href="<?= BASEURL; ?>/admin" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium hover:bg-gray-50 transition-colors">Dashboard</a>
+            <a href="<?= BASEURL; ?>/admin/postingan/" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium hover:bg-gray-50 transition-colors">Daftar Postingan</a>
+            <a href="<?= BASEURL; ?>/admin/pengguna" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium hover:bg-gray-50 transition-colors">Kelola Pengguna</a>
+            <a href="<?= BASEURL; ?>/admin/aduan" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium hover:bg-gray-50 transition-colors">Aduan Masalah</a>
         </div>
 
         <div class="p-4 border-t border-gray-100">

@@ -53,7 +53,7 @@
     <div class="lg:col-span-2 bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
         <div class="flex justify-between items-center mb-6">
             <h2 class="text-lg font-bold text-gray-900">Aktivitas Terbaru</h2>
-            <a href="#" class="text-sm text-[#006D77] font-semibold hover:underline">Lihat Semua</a>
+            <a href="<?= BASEURL; ?>/admin/postingan" class="text-sm font-bold text-[#006D77] hover:underline">Lihat Semua</a>
         </div>
         
         <div class="space-y-4">

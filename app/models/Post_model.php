@@ -195,9 +195,84 @@ class Post_model{
         $this->db->execute();
     }
 
-    public function deletePost($id){
+     public function getAllPostWithUser() {
+        $this->db->query('SELECT postingan.*, users.nama FROM postingan 
+                          INNER JOIN users ON postingan.user_id = users.id 
+                          ORDER BY postingan.created_at DESC');
+        return $this->db->resultset();
+    }
+        
+    public function deletePost($id) {
+        // Ambil nama file gambar terlebih dahulu untuk dihapus dari server
+        $this->db->query('SELECT file_path FROM postingan WHERE id = :id');
+        $this->db->bind('id', $id);
+        $post = $this->db->resultsingel();
+        if(!empty($post['file_path']) && file_exists('../public/img/postingan/' . $post['file_path'])) {
+            unlink('../public/img/postingan/' . $post['file_path']);
+        }
+    
         $this->db->query('DELETE FROM postingan WHERE id = :id');
         $this->db->bind('id', $id);
         $this->db->execute();
+        return $this->db->rowCount();
+    }
+    
+    public function getAllAduan() {
+        $this->db->query('SELECT lp.*, p.judul, p.file_path, p.kode_postingan, u.nama as nama_pelapor 
+                          FROM laporan_postingan lp 
+                          INNER JOIN postingan p ON lp.postingan_id = p.id 
+                          INNER JOIN users u ON lp.pelapor_id = u.id');
+        return $this->db->resultset();
+    }
+    
+    public function totalAduan() {
+        $this->db->query('SELECT COUNT(*) as total FROM laporan_postingan');
+        $res = $this->db->resultsingel();
+        return $res['total'] ?? 0;
+    }
+
+    public function getReportedPosts() {
+        $this->db->query('SELECT lp.*, p.judul, p.file_path, u.nama as nama_pelapor 
+                          FROM laporan_postingan lp
+                          INNER JOIN postingan p ON lp.postingan_id = p.id
+                          INNER JOIN users u ON lp.pelapor_id = u.id
+                          ORDER BY lp.created_at DESC');
+        
+        return $this->db->resultset();
+    }
+    
+    public function deleteLaporanPostingan($id_laporan) {
+        $this->db->query('DELETE FROM laporan_postingan WHERE id = :id');
+        $this->db->bind('id', $id_laporan);
+        $this->db->execute();
+        return $this->db->rowCount();
+    }
+
+    public function tambahLaporanMasalah($data) {
+        $this->db->query('INSERT INTO laporan_postingan (postingan_id, pelapor_id, alasan) 
+                          VALUES (:postingan_id, :pelapor_id, :alasan)');
+        
+        $this->db->bind('postingan_id', $data['postingan_id']);
+        $this->db->bind('pelapor_id', $data['pelapor_id']);
+        $this->db->bind('alasan', $data['alasan']);
+
+        $this->db->execute();
+        return $this->db->rowCount();
+    }
+
+    public function getAduanById($id_laporan) {
+        $this->db->query('SELECT lp.*, 
+                          p.judul, p.deskripsi, p.file_path, p.jenis_laporan, p.lokasi_spesifik, p.created_at as tgl_post, p.status, p.kode_postingan,
+                          up.nama as nama_pemosting, up.email as email_pemosting, up.whatsapp as wa_pemosting,
+                          ur.nama as nama_pelapor
+                          FROM laporan_postingan lp
+                          INNER JOIN postingan p ON lp.postingan_id = p.id
+                          INNER JOIN users up ON p.user_id = up.id
+                          INNER JOIN users ur ON lp.pelapor_id = ur.id
+                          WHERE lp.id = :id');
+        
+        $this->db->bind('id', $id_laporan);
+        return $this->db->resultsingel();
     }
 }
+

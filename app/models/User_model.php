@@ -46,6 +46,12 @@ class User_model{
         return $this->db->rowCount();
     }
 
+    
+    public function getAllUser() {
+        $this->db->query('SELECT id, nama, email, whatsapp, lokasi_pilihan FROM ' . $this->table . ' WHERE role = "user"');
+        return $this->db->resultset();
+    }
+
     public function getUserByEmail($email){
         $this->db->query('SELECT * FROM ' . $this->table . ' WHERE email = :email');
         $this->db->bind('email', $email);
