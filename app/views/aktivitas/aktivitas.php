@@ -32,6 +32,15 @@
     </div>
 
     <div class="flex flex-col gap-4">
+        <?php if (empty($data)): ?>
+            <div class="col-span-full flex flex-col items-center justify-center bg-white border border-gray-100 rounded-[1.5rem] p-12 text-center h-64 shadow-sm">
+                <div class="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center mb-4">
+                    <svg class="w-8 h-8 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </div>
+                <h3 class="text-lg font-bold text-gray-900 mb-2">Belum Ada Aktivitas</h3>
+                <p class="text-sm text-gray-500 max-w-md">Anda belum memposting laporan kehilangan atau temuan barang apapun.</p>
+            </div>
+        <?php else: ?>
         <?php foreach ($data as $post):
             $tanggal = isset($post['created_at']) ? date('d - m - Y', strtotime($post['created_at'])) : 'Tanggal tidak diketahui';
             $status = $post['status'] == 'aktif';
@@ -69,7 +78,7 @@
                 </div>
             </div>
 
-        <?php endforeach ?>
+        <?php endforeach; endif; ?>
 
     </div>
 

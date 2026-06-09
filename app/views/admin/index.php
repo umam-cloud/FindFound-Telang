@@ -42,7 +42,7 @@
         </div>
         <div>
             <p class="text-sm text-gray-500 font-medium mb-1">Kasus Selesai</p>
-            <h3 class="text-2xl font-bold text-gray-900">34</h3>
+            <h3 class="text-2xl font-bold text-gray-900"><?= $data['kasus_selesai'] ?></h3>
         </div>
     </div>
 
@@ -57,73 +57,64 @@
         </div>
         
         <div class="space-y-4">
-            <!-- Item 1 -->
-            <div class="flex items-center gap-4 pb-4 border-b border-gray-50">
-                <div class="w-10 h-10 rounded-full bg-teal-100 flex items-center justify-center text-teal-600 shrink-0">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                </div>
-                <div class="flex-1">
-                    <p class="text-sm text-gray-900 font-medium">Budi Santoso menandai "Dompet Hitam" sebagai ditemukan.</p>
-                    <p class="text-xs text-gray-500 mt-0.5">2 menit yang lalu</p>
-                </div>
-            </div>
-            
-            <!-- Item 2 -->
-            <div class="flex items-center gap-4 pb-4 border-b border-gray-50">
-                <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 shrink-0">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
-                </div>
-                <div class="flex-1">
-                    <p class="text-sm text-gray-900 font-medium">Andi menambahkan laporan kehilangan "Kunci Motor".</p>
-                    <p class="text-xs text-gray-500 mt-0.5">1 jam yang lalu</p>
-                </div>
-            </div>
-            
-            <!-- Item 3 -->
-            <div class="flex items-center gap-4">
-                <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 shrink-0">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
-                </div>
-                <div class="flex-1">
-                    <p class="text-sm text-gray-900 font-medium">Pengguna baru "Siti" mendaftar ke platform.</p>
-                    <p class="text-xs text-gray-500 mt-0.5">3 jam yang lalu</p>
-                </div>
-            </div>
+            <?php if (!empty($data['recent_activities'])): ?>
+                <?php foreach ($data['recent_activities'] as $act): ?>
+                    <div class="flex items-center gap-4 pb-4 border-b border-gray-50 last:border-0 last:pb-0">
+                        <?php if ($act['status'] == 'selesai'): ?>
+                            <div class="w-10 h-10 rounded-full bg-teal-100 flex items-center justify-center text-teal-600 shrink-0">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-sm text-gray-900 font-medium"><?= htmlspecialchars($act['nama']) ?> menandai laporan "<?= htmlspecialchars($act['judul']) ?>" sebagai selesai.</p>
+                                <p class="text-xs text-gray-500 mt-0.5"><?= date('d M Y, H:i', strtotime($act['created_at'])) ?></p>
+                            </div>
+                        <?php else: ?>
+                            <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 shrink-0">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-sm text-gray-900 font-medium"><?= htmlspecialchars($act['nama']) ?> menambahkan laporan <?= htmlspecialchars($act['jenis_laporan']) ?> "<?= htmlspecialchars($act['judul']) ?>".</p>
+                                <p class="text-xs text-gray-500 mt-0.5"><?= date('d M Y, H:i', strtotime($act['created_at'])) ?></p>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p class="text-sm text-gray-500">Belum ada aktivitas.</p>
+            <?php endif; ?>
         </div>
     </div>
     
     <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
         <h2 class="text-lg font-bold text-gray-900 mb-6">Status Laporan</h2>
         
+        <?php 
+            $total_post = $data['status_aktif'] + $data['kasus_selesai'];
+            $pct_aktif = $total_post > 0 ? round(($data['status_aktif'] / $total_post) * 100) : 0;
+            $pct_selesai = $total_post > 0 ? round(($data['kasus_selesai'] / $total_post) * 100) : 0;
+        ?>
+
         <div class="flex flex-col gap-5">
             <div>
                 <div class="flex justify-between text-sm mb-1.5">
-                    <span class="text-gray-500 font-medium">Belum Diproses</span>
-                    <span class="font-bold text-gray-900">45%</span>
+                    <span class="text-gray-500 font-medium">Aktif / Belum Selesai</span>
+                    <span class="font-bold text-gray-900"><?= $pct_aktif ?>%</span>
                 </div>
                 <div class="w-full bg-gray-100 rounded-full h-2.5 overflow-hidden">
-                    <div class="bg-red-400 h-full rounded-full" style="width: 45%"></div>
+                    <div class="bg-yellow-400 h-full rounded-full transition-all duration-500" style="width: <?= $pct_aktif ?>%"></div>
                 </div>
+                <p class="text-[10px] text-gray-400 mt-1"><?= $data['status_aktif'] ?> laporan</p>
             </div>
             
             <div>
                 <div class="flex justify-between text-sm mb-1.5">
-                    <span class="text-gray-500 font-medium">Sedang Dicari</span>
-                    <span class="font-bold text-gray-900">30%</span>
+                    <span class="text-gray-500 font-medium">Selesai / Ditemukan</span>
+                    <span class="font-bold text-gray-900"><?= $pct_selesai ?>%</span>
                 </div>
                 <div class="w-full bg-gray-100 rounded-full h-2.5 overflow-hidden">
-                    <div class="bg-yellow-400 h-full rounded-full" style="width: 30%"></div>
+                    <div class="bg-teal-500 h-full rounded-full transition-all duration-500" style="width: <?= $pct_selesai ?>%"></div>
                 </div>
-            </div>
-            
-            <div>
-                <div class="flex justify-between text-sm mb-1.5">
-                    <span class="text-gray-500 font-medium">Selesai (Ditemukan)</span>
-                    <span class="font-bold text-gray-900">25%</span>
-                </div>
-                <div class="w-full bg-gray-100 rounded-full h-2.5 overflow-hidden">
-                    <div class="bg-teal-500 h-full rounded-full" style="width: 25%"></div>
-                </div>
+                <p class="text-[10px] text-gray-400 mt-1"><?= $data['kasus_selesai'] ?> laporan</p>
             </div>
         </div>
     </div>

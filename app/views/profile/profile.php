@@ -44,13 +44,22 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <?php if (empty($data['post'])): ?>
+                <div class="col-span-full flex flex-col items-center justify-center bg-white border border-gray-100 rounded-[2rem] p-12 text-center h-64 shadow-sm">
+                    <div class="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center mb-4">
+                        <svg class="w-8 h-8 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">Belum Ada Postingan</h3>
+                    <p class="text-sm text-gray-500 max-w-md">Koleksi digital Anda masih kosong. Laporan postingan yang Anda buat akan muncul di sini.</p>
+                </div>
+            <?php else: ?>
             <?php foreach ($data['post'] as $post): 
                 $tanggal = isset($post['created_at']) ? date('d - m - Y', strtotime($post['created_at'])) : 'Tanggal tidak diketahui';
                 $status = $post['status'];
                 $jenis = $post['jenis_laporan'];
 
                 if ($status == 'aktif') {
-                    $btnText = ($jenis == 'hilang') ? 'hilang' : 'temu  an';
+                    $btnText = ($jenis == 'hilang') ? 'hilang' : 'temuan';
                     $badgeClass = ($jenis == 'hilang') ? 'bg-red-100 text-red-800' : 'bg-[#D1E9E6] text-[#006D77]';
                 }else{
                     $btnText = 'selesai';
@@ -73,7 +82,7 @@
                         </div>
                     </div>
                 </div>
-            <?php endforeach?>
+            <?php endforeach; endif; ?>
         </div>
     </div>
     <div class="relative rounded-[2rem] overflow-hidden shadow-lg h-64 md:h-[340px] flex items-center p-10 md:p-16 group">

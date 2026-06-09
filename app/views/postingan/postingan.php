@@ -102,6 +102,15 @@
 
         <div class="lg:col-span-3">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <?php if (empty($data['postingan'])): ?>
+                    <div class="col-span-full flex flex-col items-center justify-center bg-gray-50 border border-gray-100 rounded-[1.5rem] p-12 text-center min-h-[300px]">
+                        <div class="w-20 h-20 bg-white rounded-full flex items-center justify-center mb-6 shadow-sm border border-gray-100">
+                            <svg class="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Tidak Ada Postingan</h3>
+                        <p class="text-sm text-gray-500 max-w-md mx-auto leading-relaxed">Tidak ada postingan yang sesuai dengan filter atau pencarian Anda. Coba gunakan kata kunci yang berbeda atau sesuaikan filter Anda.</p>
+                    </div>
+                <?php else: ?>
                 <?php foreach ($data['postingan'] as $post):
                     $tanggal = isset($post['created_at']) ? date('d - m - Y', strtotime($post['created_at'])) : 'Tanggal tidak diketahui';
                     $jenis = $post['jenis_laporan'];
@@ -128,7 +137,7 @@
                             </div>
                         </div>
                     </a>
-                <?php endforeach ?>
+                <?php endforeach; endif; ?>
 
             </div>
             <div class="flex justify-center items-center gap-2 mt-16 mb-12">

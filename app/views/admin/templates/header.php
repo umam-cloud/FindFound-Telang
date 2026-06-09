@@ -6,23 +6,31 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <title><?= $data['judul'] ?? 'Admin' ?> - FINDFOUND</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         body { 
             font-family: 'Plus Jakarta Sans', sans-serif; 
         }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .swal2-popup { font-family: 'Plus Jakarta Sans', sans-serif !important; }
     </style>
 </head>
 <body class="text-gray-800 bg-gray-50 flex min-h-screen">
 
+    <!-- Sidebar Admin Overlay -->
+    <div id="admin-sidebar-overlay" class="fixed inset-0 bg-gray-900/50 z-40 hidden transition-opacity lg:hidden"></div>
+
     <!-- Sidebar Admin -->
-    <aside class="w-64 bg-white border-r border-gray-100 flex flex-col sticky top-0 h-screen hidden md:flex">
-        <div class="px-8 py-6 border-b border-gray-100">
+    <aside id="admin-sidebar" class="w-64 bg-white border-r border-gray-100 flex flex-col fixed md:sticky top-0 left-0 h-screen z-50 transform -translate-x-full md:translate-x-0 transition-transform duration-300">
+        <div class="px-8 py-6 border-b border-gray-100 flex justify-between items-center">
             <a href="<?=BASEURL?>/admin/" class="text-xl font-bold tracking-[0.2em] text-[#006D77]">ADMIN PANEL</a>
+            <button id="admin-close-sidebar" class="md:hidden text-gray-500 hover:text-gray-900">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
         </div>
         
-        <div class="flex flex-col gap-2 px-4">
+        <div class="flex flex-col gap-2 px-4 py-4 flex-1">
             <a href="<?= BASEURL; ?>/admin" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium hover:bg-gray-50 transition-colors">Dashboard</a>
             <a href="<?= BASEURL; ?>/admin/postingan/" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium hover:bg-gray-50 transition-colors">Daftar Postingan</a>
             <a href="<?= BASEURL; ?>/admin/pengguna" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium hover:bg-gray-50 transition-colors">Kelola Pengguna</a>
@@ -39,13 +47,33 @@
 
     <!-- Main Content Area -->
     <div class="flex-1 flex flex-col w-full h-screen overflow-y-auto">
-        <!-- Top Navbar untuk Mobile (opsional) -->
+        <!-- Top Navbar untuk Mobile -->
         <header class="bg-white px-6 py-4 flex items-center justify-between sticky top-0 z-30 border-b border-gray-100 md:hidden">
             <a href="<?=BASEURL?>/admin/" class="text-lg font-bold tracking-[0.2em] text-[#006D77]">ADMIN PANEL</a>
-            <button class="text-gray-500 hover:text-gray-900">
+            <button id="admin-mobile-menu-btn" class="text-gray-500 hover:text-gray-900 focus:outline-none p-2 rounded-lg hover:bg-gray-100 transition-colors">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
             </button>
         </header>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const sidebar = document.getElementById('admin-sidebar');
+                const overlay = document.getElementById('admin-sidebar-overlay');
+                const mobileBtn = document.getElementById('admin-mobile-menu-btn');
+                const closeBtn = document.getElementById('admin-close-sidebar');
+
+                function toggleSidebar() {
+                    sidebar.classList.toggle('-translate-x-full');
+                    overlay.classList.toggle('hidden');
+                }
+
+                if (sidebar && overlay && mobileBtn) {
+                    mobileBtn.addEventListener('click', toggleSidebar);
+                    overlay.addEventListener('click', toggleSidebar);
+                    if(closeBtn) closeBtn.addEventListener('click', toggleSidebar);
+                }
+            });
+        </script>
         
         <!-- Top Navbar untuk Desktop -->
         <header class="bg-white px-8 py-5 hidden md:flex items-center justify-end sticky top-0 z-30 border-b border-gray-100">

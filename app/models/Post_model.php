@@ -274,5 +274,22 @@ class Post_model{
         $this->db->bind('id', $id_laporan);
         return $this->db->resultsingel();
     }
+
+    public function getTotalPostByStatus($status) {
+        $this->db->query('SELECT COUNT(*) as total FROM postingan WHERE status = :status');
+        $this->db->bind('status', $status);
+        $res = $this->db->resultsingel();
+        return $res['total'] ?? 0;
+    }
+
+    public function getRecentActivities($limit = 5) {
+        $limit = (int)$limit;
+        $this->db->query('SELECT p.judul, p.jenis_laporan, p.status, p.created_at, u.nama 
+                          FROM postingan p
+                          INNER JOIN users u ON p.user_id = u.id
+                          ORDER BY p.created_at DESC 
+                          LIMIT ' . $limit);
+        return $this->db->resultset();
+    }
 }
 

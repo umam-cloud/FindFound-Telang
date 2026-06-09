@@ -23,7 +23,22 @@
                     <td class="px-6 py-4 font-mono text-xs"><?= htmlspecialchars($user['whatsapp']); ?></td>
                     <td class="px-6 py-4 text-xs text-gray-400"><?= htmlspecialchars($user['lokasi_pilihan'] ?? 'Belum Diatur'); ?></td>
                     <td class="px-6 py-4 text-center">
-                        <a href="<?= BASEURL; ?>/admin/hapusPengguna/<?= $user['id']; ?>" onclick="return confirm('Blokir dan hapus akun ini? Semua postingannya juga akan terhapus.')" class="text-red-600 hover:underline text-xs font-bold">
+                        <a href="javascript:void(0);" onclick="
+                            Swal.fire({
+                                title: 'Konfirmasi',
+                                text: 'Blokir dan hapus akun ini? Semua postingannya juga akan terhapus.',
+                                icon: 'warning',
+                                showCancelButton: true,
+                                confirmButtonColor: '#d33',
+                                cancelButtonColor: '#006D77',
+                                confirmButtonText: 'Hapus',
+                                cancelButtonText: 'Batal'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    window.location.href = '<?= BASEURL; ?>/admin/hapusPengguna/<?= $user['id']; ?>';
+                                }
+                            });
+                        " class="text-red-600 hover:underline text-xs font-bold">
                             Hapus Akun
                         </a>
                     </td>

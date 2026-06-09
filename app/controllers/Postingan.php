@@ -69,7 +69,7 @@ class Postingan extends Controller{
         header('location: '.BASEURL.'/postingan/detailPostingan/'.$kode);
     }
 
-    public function laporkan($id_postingan) {
+    public function laporkan($id_postingan, $kode_postingan = null) {
         if (!isset($_SESSION['id_user'])) {
             header('location: '.BASEURL.'/auth');
             exit;
@@ -83,16 +83,12 @@ class Postingan extends Controller{
             ];
 
             if ($this->model('Post_model')->tambahLaporanMasalah($data) > 0) {
-                echo "<script>
-                        alert('Laporan berhasil dikirim ke Admin!');
-                        window.location.href = '".BASEURL."/postingan';
-                      </script>";
+                $_SESSION['swal_success'] = 'Laporan berhasil dikirim ke Admin!';
+                header('Location: ' . BASEURL . '/postingan/detailPostingan/' . ($kode_postingan ?? $id_postingan));
                 exit;
             } else {
-                echo "<script>
-                        alert('Gagal mengirim laporan.');
-                        window.location.href = '".BASEURL."/postingan/detailPostingan/".$id_postingan."';
-                      </script>";
+                $_SESSION['swal_error'] = 'Gagal mengirim laporan.';
+                header('Location: ' . BASEURL . '/postingan/detailPostingan/' . ($kode_postingan ?? $id_postingan));
                 exit;
             }
         }

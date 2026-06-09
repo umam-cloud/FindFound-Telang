@@ -79,11 +79,41 @@
             </div>
 
             <div class="p-6 bg-gray-50 border-t border-gray-100 flex flex-col sm:flex-row justify-end gap-3 mt-auto">
-                <a href="<?= BASEURL; ?>/admin/abaikanLaporan/<?= $data['aduan']['id']; ?>" onclick="return confirm('Yakin ingin mengabaikan laporan ini? Laporan akan dihapus, tetapi postingan tetap ada.')" class="px-6 py-3.5 bg-white border border-gray-300 text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded-xl text-sm font-bold transition-all text-center">
+                <a href="javascript:void(0);" onclick="
+                    Swal.fire({
+                        title: 'Abaikan Laporan?',
+                        text: 'Yakin ingin mengabaikan laporan ini? Laporan akan dihapus, tetapi postingan tetap ada.',
+                        icon: 'question',
+                        showCancelButton: true,
+                        confirmButtonColor: '#006D77',
+                        cancelButtonColor: '#6b7280',
+                        confirmButtonText: 'Ya, Abaikan',
+                        cancelButtonText: 'Batal'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = '<?= BASEURL; ?>/admin/abaikanLaporan/<?= $data['aduan']['id']; ?>';
+                        }
+                    });
+                " class="px-6 py-3.5 bg-white border border-gray-300 text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded-xl text-sm font-bold transition-all text-center">
                     Abaikan Laporan
                 </a>
                 
-                <a href="<?= BASEURL; ?>/admin/hapusPostingan/<?= $data['aduan']['postingan_id']; ?>" onclick="return confirm('PERINGATAN: Hapus postingan yang dilaporkan ini secara permanen?')" class="px-6 py-3.5 bg-red-600 hover:bg-red-700 text-white rounded-xl text-sm font-bold transition-all shadow-md shadow-red-500/30 flex items-center justify-center gap-2">
+                <a href="javascript:void(0);" onclick="
+                    Swal.fire({
+                        title: 'Hapus Postingan?',
+                        text: 'PERINGATAN: Hapus postingan yang dilaporkan ini secara permanen?',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#006D77',
+                        confirmButtonText: 'Ya, Hapus',
+                        cancelButtonText: 'Batal'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = '<?= BASEURL; ?>/admin/hapusPostingan/<?= $data['aduan']['postingan_id']; ?>';
+                        }
+                    });
+                " class="px-6 py-3.5 bg-red-600 hover:bg-red-700 text-white rounded-xl text-sm font-bold transition-all shadow-md shadow-red-500/30 flex items-center justify-center gap-2">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                     Hapus Postingan (Take Down)
                 </a>

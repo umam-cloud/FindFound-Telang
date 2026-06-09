@@ -40,6 +40,7 @@ class Auth extends Controller{
             $_SESSION['login'] = true;
             $_SESSION['id_user'] = $user['id'];
             $_SESSION['foto_profil'] = $user['foto_profil'];
+            $_SESSION['role'] = isset($user['role']) ? $user['role'] : 'user';
             
             header('Content-Type: application/json');
             echo json_encode(['status' => 'success']);
@@ -72,6 +73,7 @@ class Auth extends Controller{
             $_SESSION['Login'] = TRUE;
             $_SESSION['id_user'] = $user['id'];
             $_SESSION['foto_profil'] = $user['foto_profil'];
+            $_SESSION['role'] = isset($user['role']) ? $user['role'] : 'user';
     
             header('location: '.BASEURL.'/home');
             exit;

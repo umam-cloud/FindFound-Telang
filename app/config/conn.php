@@ -1,6 +1,6 @@
 <?php
 
-define('BASEURL','http://localhost/findfound-telang/public' );
+define('BASEURL','http://localhost/findfound-telang' );
 
 define('DB_HOST', 'localhost');
 define('DB_USER', 'root');

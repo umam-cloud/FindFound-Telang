@@ -19,6 +19,10 @@ class Admin extends Controller {
         $data['post_hilang'] = $post_model->getPostByJenis('hilang');
         $data['total_aduan'] = $post_model->totalAduan();
 
+        $data['kasus_selesai'] = $post_model->getTotalPostByStatus('selesai');
+        $data['status_aktif'] = $post_model->getTotalPostByStatus('aktif');
+        $data['recent_activities'] = $post_model->getRecentActivities(3);
+
         $this->view('admin/templates/header', $data);
         $this->view('admin/index', $data);
         $this->view('admin/templates/footer');
