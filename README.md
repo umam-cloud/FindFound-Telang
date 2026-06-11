@@ -106,37 +106,6 @@ http://localhost/find-and-found-telang/public
 
 ---
 
-## 🌿 Struktur Branch
-
-| Branch | Fungsi |
-|--------|--------|
-| `main` | Versi final/production |
-| `dev` | Integrasi semua fitur |
-| `feat/frontend` | Pengembangan tampilan (tim frontend) |
-| `feat/backend` | Pengembangan logika & database (tim backend) |
-
-### Alur Kerja Git
-```bash
-# Sebelum mulai kerja, selalu pull dulu
-git pull origin feat/frontend   # atau feat/backend
-
-# Setelah selesai coding
-git add .
-git commit -m "feat: deskripsi singkat perubahan"
-git push origin feat/frontend   # atau feat/backend
-```
-
-### Konvensi Commit Message
-| Prefix | Digunakan untuk |
-|--------|----------------|
-| `feat:` | Fitur baru |
-| `fix:` | Perbaikan bug |
-| `style:` | Perubahan CSS/tampilan |
-| `db:` | Perubahan database |
-| `docs:` | Update dokumentasi |
-
----
-
 ## ✅ Fitur
 
 - [x] Struktur MVC native PHP
@@ -146,7 +115,7 @@ git push origin feat/frontend   # atau feat/backend
 - [x] Pencarian barang
 - [x] Detail barang
 - [x] Upload foto barang
-- [ ] Dashboard admin
+- [x] Dashboard admin
 
 ---
 
