@@ -84,6 +84,23 @@
 
 </main>
 
+<!-- Delete Modal -->
+<div id="deleteModal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden items-center justify-center transition-opacity opacity-0 duration-300">
+    <div class="bg-white rounded-[1.5rem] p-6 md:p-8 max-w-sm w-full mx-4 shadow-xl transform scale-95 transition-all duration-300" id="deleteModalContent">
+        <div class="flex flex-col items-center text-center">
+            <div class="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center mb-4">
+                <svg class="w-8 h-8 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">Hapus Postingan?</h3>
+            <p class="text-sm text-gray-500 mb-6">Apakah Anda yakin ingin menghapus postingan ini? Tindakan ini tidak dapat dibatalkan.</p>
+            <div class="flex gap-3 w-full">
+                <button onclick="closeDeleteModal()" class="flex-1 py-3 px-4 bg-gray-100 text-gray-700 font-bold rounded-xl hover:bg-gray-200 transition-colors">Batal</button>
+                <a id="confirmDeleteBtn" href="#" class="flex-1 py-3 px-4 bg-red-500 text-white font-bold rounded-xl hover:bg-red-600 transition-colors">Hapus</a>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
 function toggleMenu(event, menuId) {
     event.stopPropagation(); 
@@ -104,10 +121,41 @@ window.onclick = function(event) {
 }
 
 function confirmDelete(id) {
-    if (confirm('Apakah Anda yakin ingin menghapus postingan ini?')) {
-        window.location.href = `<?=BASEURL?>/aktivitas/delete/${id}`;
-    }
+    const modal = document.getElementById('deleteModal');
+    const modalContent = document.getElementById('deleteModalContent');
+    const confirmBtn = document.getElementById('confirmDeleteBtn');
+    
+    confirmBtn.href = `<?=BASEURL?>/aktivitas/delete/${id}`;
+    
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    
+    setTimeout(() => {
+        modal.classList.remove('opacity-0');
+        modalContent.classList.remove('scale-95');
+        modalContent.classList.add('scale-100');
+    }, 10);
 }
+
+function closeDeleteModal() {
+    const modal = document.getElementById('deleteModal');
+    const modalContent = document.getElementById('deleteModalContent');
+    
+    modal.classList.add('opacity-0');
+    modalContent.classList.remove('scale-100');
+    modalContent.classList.add('scale-95');
+    
+    setTimeout(() => {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+    }, 300);
+}
+
+document.getElementById('deleteModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeDeleteModal();
+    }
+});
 
 // function switchTab(tabName) {
 //     const tabs = document.querySelectorAll('.tab-btn');

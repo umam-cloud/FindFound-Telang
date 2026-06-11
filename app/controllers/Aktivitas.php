@@ -78,6 +78,41 @@ class Aktivitas extends Controller{
         $data['id_postingan'] = $id;
         $data['foto_lama'] = $gambar;
 
+        $kata_kasar = [
+            "Sialan", "brengsek", "keparat", "bajingan", "bedebah", "jancok", "jancuk", 
+            "diancuk", "cuk", "goblok", "goblog", "tolol", "bego", "dungu", "idiot", 
+            "oon", "pandir", "sinting", "gila", "sarap", "sedeng", "miring", "ndasmu", 
+            "matamu", "cocotmu", "setan", "iblis", "dedemit", "tai", "sampah", 
+            "bangsat", "bangkai", "mampus", "modar", "bongko", "kampang", "jadah", 
+            "anak haram", "pukimak", "kimak", "cukimai", "cibai", "pantek", "puki", 
+            "kontol", "memek", "peler", "itil", "jablay", "lonte", "pelacur", 
+            "sundal", "jalang", "perek", "germo", "cangkemmu", "raimu", "dapuranmu", 
+            "gateli", "picek", "budeg", "bolot", "kopok", "pekok", "koplak", 
+            "koplok", "belegug", "borokokok", "kehed", "edan", "gelo", "jurig", 
+            "sompret", "gembel", "kampungan", "norak", "udik", "geblek", "dancuk", 
+            "jiamput", "jamput", "jancurit", "jancik", "dancik", "juancuk", "jingan", 
+            "ngentot", "ngewe", "ewe", "tengik", "songong", "belagu", "tengil", 
+            "congkak", "bloon", "dongok", "lemot", "lola", "somplak", "kucluk", 
+            "katrok", "jamet", "kimcil", "cabe-cabean", "bencong", "banci", "kere", 
+            "melarat", "kismin", "silit", "bool", "burit", "bawuk", "tempik", 
+            "turuk", "peli", "kancut", "cawet", "sempak", "pret", "jenglot", 
+            "tuyul", "bujang inam", "ampas", "rongsokan", "bosok", "busuk"
+        ];
+        $input_fields = ['judul', 'lokasi', 'deskripsi'];
+
+        foreach ($input_fields as $field) {
+            if (!empty($_POST[$field])) {
+                foreach ($kata_kasar as $kata) {
+                    if (stripos($_POST[$field], $kata) !== false) {
+                        $_SESSION['err'] = 'Peringatan: Terdapat kata kasar (tidak pantas) pada form ' . $field . '!'; 
+                        $_SESSION['old_input'] = $_POST;
+                        header('location: '.BASEURL.'/aktivitas/editPostingan/'.$id);
+                        exit;
+                    }
+                }
+            }
+        }
+
         if(empty(trim($_POST['judul'] ?? ''))){
             $_SESSION['err'] = 'Form judul Wajib di isi!'; 
             $_SESSION['old_input'] = $_POST;
