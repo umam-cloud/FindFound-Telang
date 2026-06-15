@@ -173,9 +173,6 @@
                     <p class="text-sm text-teal-50 opacity-90 leading-relaxed mb-8">
                         Aktifkan notifikasi untuk mendapatkan pemberitahuan instan saat ada barang yang hilang atau ditemukan di radius 5km dari posisi Anda.
                     </p>
-                    <button class="bg-white text-[#006D77] px-6 py-3 rounded-full text-xs font-bold shadow-md hover:bg-gray-50 transition-colors w-max">
-                        Aktifkan Sekarang
-                    </button>
                 </div>
             </div>
 
